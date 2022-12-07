@@ -25,4 +25,8 @@ completion_api_params = {
     "presence_penalty": 0.3,
 }
 
+process_message_timeout = 45
+
+retry_times = 3
+
 session_expire_time = 60 * 60 * 24 * 7
