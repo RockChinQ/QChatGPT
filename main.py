@@ -12,7 +12,7 @@ def main():
     assert os.path.exists('config.py')
     import config
 
-    print(config.mirai_http_api_config)
+    # print(config.mirai_http_api_config)
 
 
 if __name__ == '__main__':

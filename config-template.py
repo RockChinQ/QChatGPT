@@ -1,6 +1,5 @@
 mirai_http_api_config = {
     "host": "",
-    "port": 8080,
     "verifyKey": "",
     "qq": 0
 }
@@ -18,5 +17,10 @@ openai_config = {
 }
 
 completion_api_params = {
-
+    "model": "text-davinci-003",
+    "temperature": 0.9,
+    "max_tokens": 1024,
+    "top_p": 1,
+    "frequency_penalty": 0.4,
+    "presence_penalty": 0.3,
 }
