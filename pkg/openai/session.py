@@ -35,6 +35,7 @@ class Session:
         # 向API请求补全
         response = pkg.openai.manager.get_inst().request_completion(self.prompt, self.user_name+':')
 
+        # print(response)
         # 处理回复
         res_test = response["choices"][0]["text"]
         res_ans = res_test
@@ -45,7 +46,7 @@ class Session:
             del (res_ans_spt[0])
             res_ans = '\n\n'.join(res_ans_spt)
 
-        self.prompt += "\n" + self.bot_name + ":{}".format(res_ans)
+        self.prompt += "{}".format(res_ans) + '\n'
         return res_ans
 
     def persistence(self):

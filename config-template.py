@@ -24,3 +24,5 @@ completion_api_params = {
     "frequency_penalty": 0.4,
     "presence_penalty": 0.3,
 }
+
+session_expire_time = 60 * 60 * 24 * 7
