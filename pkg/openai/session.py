@@ -1,9 +1,41 @@
 import time
 
 import pkg.openai.manager
+import pkg.database.manager
+
+sessions = {}
 
 
-session = {}
+def load_sessions():
+    global sessions
+
+    db_inst = pkg.database.manager.get_inst()
+
+    session_data = db_inst.load_valid_sessions()
+
+    for session_name in session_data:
+        temp_session = Session(session_name)
+        temp_session.name = session_name
+        temp_session.create_timestamp = session_data[session_name]['create_timestamp']
+        temp_session.last_interact_timestamp = session_data[session_name]['last_interact_timestamp']
+        temp_session.prompt = session_data[session_name]['prompt']
+
+        sessions[session_name] = temp_session
+
+
+def get_session(session_name: str):
+    global sessions
+    if session_name not in sessions:
+        sessions[session_name] = Session(session_name)
+    return sessions[session_name]
+
+
+def dump_session(session_name: str):
+    global sessions
+    if session_name in sessions:
+        assert isinstance(sessions[session_name], Session)
+        sessions[session_name].persistence()
+        del sessions[session_name]
 
 
 # 通用的OpenAI API交互session
@@ -23,17 +55,14 @@ class Session:
         self.name = name
         self.create_timestamp = int(time.time())
 
-        global session
-        session[name] = self
-
     # 请求回复
     # 这个函数是阻塞的
     def append(self, text: str) -> str:
-        self.prompt += self.user_name + ':' + text + '\n'+self.bot_name+':'
+        self.prompt += self.user_name + ':' + text + '\n' + self.bot_name + ':'
         self.last_interact_timestamp = int(time.time())
 
         # 向API请求补全
-        response = pkg.openai.manager.get_inst().request_completion(self.prompt, self.user_name+':')
+        response = pkg.openai.manager.get_inst().request_completion(self.prompt, self.user_name + ':')
 
         # print(response)
         # 处理回复
@@ -50,4 +79,12 @@ class Session:
         return res_ans
 
     def persistence(self):
-        pass
+        db_inst = pkg.database.manager.get_inst()
+
+        name_spt = self.name.split('_')
+
+        subject_type = name_spt[0]
+        subject_number = int(name_spt[1])
+
+        db_inst.persistence_session(subject_type, subject_number, self.create_timestamp, self.last_interact_timestamp,
+                                    self.prompt)
