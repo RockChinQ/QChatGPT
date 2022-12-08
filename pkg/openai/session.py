@@ -56,6 +56,8 @@ class Session:
 
     last_interact_timestamp = 0
 
+    just_switched_to_exist_session = False
+
     def __init__(self, name: str):
         self.name = name
         self.create_timestamp = int(time.time())
@@ -82,6 +84,11 @@ class Session:
             res_ans = '\n\n'.join(res_ans_spt)
 
         self.prompt += "{}".format(res_ans) + '\n'
+
+        if self.just_switched_to_exist_session:
+            self.just_switched_to_exist_session = False
+            self.set_ongoing()
+
         return res_ans
 
     def persistence(self):
@@ -106,6 +113,11 @@ class Session:
         self.prompt = ''
         self.create_timestamp = int(time.time())
         self.last_interact_timestamp = int(time.time())
+        self.just_switched_to_exist_session = False
+
+    # 将本session的数据库状态设置为on_going
+    def set_ongoing(self):
+        pkg.database.manager.get_inst().set_session_ongoing(self.name, self.create_timestamp)
 
     # 切换到上一个session
     def last_session(self):
@@ -118,6 +130,8 @@ class Session:
             self.create_timestamp = last_one['create_timestamp']
             self.last_interact_timestamp = last_one['last_interact_timestamp']
             self.prompt = last_one['prompt']
+
+            just_switched = True
             return self
 
     def next_session(self):
@@ -130,6 +144,8 @@ class Session:
             self.create_timestamp = next_one['create_timestamp']
             self.last_interact_timestamp = next_one['last_interact_timestamp']
             self.prompt = next_one['prompt']
+
+            just_switched = True
             return self
 
     def list_history(self, capacity: int = 10, page: int = 0):

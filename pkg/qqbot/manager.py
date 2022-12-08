@@ -2,6 +2,7 @@ from mirai import At, GroupMessage, MessageEvent, Mirai, Plain, StrangerMessage,
 import pkg.openai.session
 from func_timeout import func_set_timeout, FunctionTimedOut
 import datetime
+import logging
 
 help_text = """帮助信息：
 !help - 显示帮助
@@ -114,7 +115,7 @@ class QQBotManager:
                     if current != -1:
                         reply += ",当前会话是 #{}\n".format(current)
                     else:
-                        reply += ",当前处于全新会话"
+                        reply += ",当前处于全新会话或不在此页"
 
         else:  # 消息
             session = pkg.openai.session.get_session(session_name)
@@ -126,6 +127,7 @@ class QQBotManager:
         return reply
 
     async def on_person_message(self, event: MessageEvent):
+        global processing
         if "person_{}".format(event.sender.id) in processing:
             return await self.bot.send(event, "err:正在处理中，请稍后再试")
 
@@ -158,6 +160,7 @@ class QQBotManager:
             return await self.bot.send(event, reply)
 
     async def on_group_message(self, event: GroupMessage):
+        global processing
         if "group_{}".format(event.group.id) in processing:
             return await self.bot.send(event, "err:正在处理中，请稍后再试")
 
