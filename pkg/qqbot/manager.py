@@ -2,7 +2,7 @@ from mirai import At, GroupMessage, MessageEvent, Mirai, Plain, StrangerMessage,
 import pkg.openai.session
 from func_timeout import func_set_timeout, FunctionTimedOut
 
-help_text = """
+help_text = """帮助信息：
 !help - 显示帮助
 !reset - 重置会话
 !last - 切换到上一次的对话
@@ -12,6 +12,7 @@ help_text = """
 inst = None
 
 processing = []
+
 
 class QQBotManager:
     timeout = 60
@@ -29,7 +30,7 @@ class QQBotManager:
             adapter=WebSocketAdapter(
                 verify_key=mirai_http_api_config['verifyKey'],
                 host=mirai_http_api_config['host'],
-                port=8080
+                port=mirai_http_api_config['port']
             )
         )
 
@@ -56,26 +57,27 @@ class QQBotManager:
         reply = ''
         session_name = "{}_{}".format(launcher_type, launcher_id)
 
-        if text_message.startswith('!'):  # 指令
-            cmd = text_message
+        if text_message.startswith('!') or text_message.startswith("！"):  # 指令
+            cmd = text_message[1:].strip()
 
-            if cmd == '!help':
-                reply = help_text
-            elif cmd == '!reset':
+            if cmd == 'help':
+                reply = "[bot]" + help_text
+            elif cmd == 'reset':
+                pkg.openai.session.get_session(session_name).reset()
+                reply = "[bot]会话已重置"
+            elif cmd == 'last':
                 pass
-            elif cmd == '!last':
-                pass
-            elif cmd == '!next':
+            elif cmd == 'next':
                 pass
         else:  # 消息
             session = pkg.openai.session.get_session(session_name)
-            reply = session.append(text_message)
+            reply = "[GPT]" + session.append(text_message)
 
         return reply
 
     async def on_person_message(self, event: MessageEvent):
         if "person_{}".format(event.sender.id) in processing:
-            return
+            return await self.bot.send(event, "err:正在处理中，请稍后再试")
 
         reply = ''
 
@@ -107,7 +109,7 @@ class QQBotManager:
 
     async def on_group_message(self, event: GroupMessage):
         if "group_{}".format(event.group.id) in processing:
-            return
+            return await self.bot.send(event, "err:正在处理中，请稍后再试")
 
         reply = ''
 
@@ -116,13 +118,15 @@ class QQBotManager:
         elif At(self.bot.qq) not in event.message_chain:
             pass
         else:
+            event.message_chain.remove(At(self.bot.qq))
+
             processing.append("group_{}".format(event.sender.id))
 
             # 超时则重试，重试超过次数则放弃
             failed = 0
             for i in range(self.retry):
                 try:
-                    reply = self.process_message('group', event.group.id, str(event.message_chain))
+                    reply = self.process_message('group', event.group.id, str(event.message_chain).strip())
                     break
                 except FunctionTimedOut:
                     failed += 1

@@ -1,5 +1,6 @@
 mirai_http_api_config = {
     "host": "",
+    "port": 8080,
     "verifyKey": "",
     "qq": 0
 }

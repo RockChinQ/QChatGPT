@@ -88,3 +88,16 @@ class Session:
 
         db_inst.persistence_session(subject_type, subject_number, self.create_timestamp, self.last_interact_timestamp,
                                     self.prompt)
+
+    def reset(self):
+        if self.prompt != '':
+            self.persistence()
+        self.prompt = ''
+        self.create_timestamp = int(time.time())
+        self.last_interact_timestamp = 0
+
+    def last_session(self):
+        pass
+
+    def next_session(self):
+        pass

@@ -1,6 +1,7 @@
 import time
 
 import pymysql
+from pymysql.converters import escape_string
 
 import config
 
@@ -61,12 +62,13 @@ class DatabaseManager:
             insert into `sessions` (`name`, `type`, `number`, `create_timestamp`, `last_interact_timestamp`, `prompt`) 
             values ('{}', '{}', {}, {}, {}, '{}')
             """.format("{}_{}".format(subject_type, subject_number), subject_type, subject_number, create_timestamp,
-                       last_interact_timestamp, prompt))
+                       last_interact_timestamp, escape_string(prompt)))
         else:
             self.cursor.execute("""
             update `sessions` set `last_interact_timestamp` = {}, `prompt` = '{}' 
             where `type` = '{}' and `number` = {} and `create_timestamp` = {}
-            """.format(last_interact_timestamp, prompt, subject_type, subject_number, create_timestamp))
+            """.format(last_interact_timestamp, escape_string(prompt), subject_type,
+                       subject_number, create_timestamp))
 
     # 记载还没过期的session数据
     def load_valid_sessions(self) -> dict:
