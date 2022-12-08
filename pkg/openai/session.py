@@ -59,6 +59,7 @@ class Session:
     def __init__(self, name: str):
         self.name = name
         self.create_timestamp = int(time.time())
+        self.last_interact_timestamp = int(time.time())
 
     # 请求回复
     # 这个函数是阻塞的
@@ -84,6 +85,9 @@ class Session:
         return res_ans
 
     def persistence(self):
+        if self.prompt == '':
+            return
+
         db_inst = pkg.database.manager.get_inst()
 
         name_spt = self.name.split('_')
@@ -101,10 +105,32 @@ class Session:
                 pkg.database.manager.get_inst().explicit_close_session(self.name, self.create_timestamp)
         self.prompt = ''
         self.create_timestamp = int(time.time())
-        self.last_interact_timestamp = 0
+        self.last_interact_timestamp = int(time.time())
 
+    # 切换到上一个session
     def last_session(self):
-        pass
+        last_one = pkg.database.manager.get_inst().last_session(self.name, self.last_interact_timestamp)
+        if last_one is None:
+            return None
+        else:
+            self.persistence()
+
+            self.create_timestamp = last_one['create_timestamp']
+            self.last_interact_timestamp = last_one['last_interact_timestamp']
+            self.prompt = last_one['prompt']
+            return self
 
     def next_session(self):
-        pass
+        next_one = pkg.database.manager.get_inst().next_session(self.name, self.last_interact_timestamp)
+        if next_one is None:
+            return None
+        else:
+            self.persistence()
+
+            self.create_timestamp = next_one['create_timestamp']
+            self.last_interact_timestamp = next_one['last_interact_timestamp']
+            self.prompt = next_one['prompt']
+            return self
+
+    def list_history(self, capacity: int = 10, page: int = 0):
+        return pkg.database.manager.get_inst().list_history(self.name, capacity, page)

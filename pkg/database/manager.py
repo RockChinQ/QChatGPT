@@ -118,6 +118,89 @@ class DatabaseManager:
 
         return sessions
 
+    # 获取此session_name前一个session的数据
+    def last_session(self, session_name: str, cursor_timestamp: int):
+
+        self.cursor.execute("""
+        select `name`, `type`, `number`, `create_timestamp`, `last_interact_timestamp`, `prompt`, `status`
+        from `sessions` where `name` = '{}' and `last_interact_timestamp` < {} order by `last_interact_timestamp` desc
+        limit 1
+        """.format(session_name, cursor_timestamp))
+        results = self.cursor.fetchall()
+        if len(results) == 0:
+            return None
+        result = results[0]
+
+        session_name = result[0]
+        subject_type = result[1]
+        subject_number = result[2]
+        create_timestamp = result[3]
+        last_interact_timestamp = result[4]
+        prompt = result[5]
+        status = result[6]
+
+        return {
+            'subject_type': subject_type,
+            'subject_number': subject_number,
+            'create_timestamp': create_timestamp,
+            'last_interact_timestamp': last_interact_timestamp,
+            'prompt': prompt
+        }
+
+    # 获取此session_name后一个session的数据
+    def next_session(self, session_name: str, cursor_timestamp: int):
+
+            self.cursor.execute("""
+            select `name`, `type`, `number`, `create_timestamp`, `last_interact_timestamp`, `prompt`, `status`
+            from `sessions` where `name` = '{}' and `last_interact_timestamp` > {} order by `last_interact_timestamp` asc
+            limit 1
+            """.format(session_name, cursor_timestamp))
+            results = self.cursor.fetchall()
+            if len(results) == 0:
+                return None
+            result = results[0]
+
+            session_name = result[0]
+            subject_type = result[1]
+            subject_number = result[2]
+            create_timestamp = result[3]
+            last_interact_timestamp = result[4]
+            prompt = result[5]
+            status = result[6]
+
+            return {
+                'subject_type': subject_type,
+                'subject_number': subject_number,
+                'create_timestamp': create_timestamp,
+                'last_interact_timestamp': last_interact_timestamp,
+                'prompt': prompt
+            }
+
+    def list_history(self, session_name: str, capacity: int, page: int):
+        self.cursor.execute("""
+        select `name`, `type`, `number`, `create_timestamp`, `last_interact_timestamp`, `prompt`, `status`
+        from `sessions` where `name` = '{}' order by `last_interact_timestamp` desc limit {} offset {}
+        """.format(session_name, capacity, capacity * page))
+        results = self.cursor.fetchall()
+        sessions = []
+        for result in results:
+            session_name = result[0]
+            subject_type = result[1]
+            subject_number = result[2]
+            create_timestamp = result[3]
+            last_interact_timestamp = result[4]
+            prompt = result[5]
+            status = result[6]
+
+            sessions.append({
+                'subject_type': subject_type,
+                'subject_number': subject_number,
+                'create_timestamp': create_timestamp,
+                'last_interact_timestamp': last_interact_timestamp,
+                'prompt': prompt
+            })
+
+        return sessions
 
 def get_inst() -> DatabaseManager:
     global inst
