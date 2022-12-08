@@ -1,6 +1,7 @@
 # QChatGPT
 
-通过调用OpenAI GPT-3模型提供的Completion API来实现一个更加智能的QQ机器人
+通过调用OpenAI GPT-3模型提供的Completion API来实现一个更加智能的QQ机器人  
+已部署的测试机器人QQ: 960164003  
 
 ## 技术栈
 
