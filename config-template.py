@@ -1,3 +1,5 @@
+import logging
+
 # Mirai的配置
 # 请到配置mirai的步骤中的教程查看每个字段的信息
 # host: 运行mirai的主机地址
@@ -35,18 +37,22 @@ openai_config = {
 # 不了解的话请不要修改，具体请查看OpenAI的文档
 completion_api_params = {
     "model": "text-davinci-003",
-    "temperature": 0.9,
-    "max_tokens": 1024,
+    "temperature": 0.6,
+    "max_tokens": 256,
     "top_p": 1,
     "frequency_penalty": 0.4,
     "presence_penalty": 0.3,
 }
 
 # 消息处理的超时时间
-process_message_timeout = 45
+process_message_timeout = 20
 
 # 消息处理超时重试次数
 retry_times = 3
 
 # 每个会话的过期时间
-session_expire_time = 60 * 60 * 24 * 7
+# 默认值20分钟
+session_expire_time = 60 * 20
+
+# 日志级别
+logging_level = logging.DEBUG

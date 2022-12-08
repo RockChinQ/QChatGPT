@@ -9,6 +9,17 @@ import pkg.database.manager
 import pkg.openai.session
 import pkg.qqbot.manager
 
+import logging
+import colorlog
+
+
+log_colors_config = {
+    'DEBUG': 'green',  # cyan white
+    'INFO': 'white',
+    'WARNING': 'yellow',
+    'ERROR': 'red',
+    'CRITICAL': 'bold_red',
+}
 
 def init_db():
     import config
@@ -26,6 +37,24 @@ def main():
     # 导入config.py
     assert os.path.exists('config.py')
     import config
+
+    logging.basicConfig(level=config.logging_level,  # 设置日志输出格式
+                        filename='qchatgpt.log',  # log日志输出的文件位置和文件名
+                        format="[%(asctime)s.%(msecs)03d] %(filename)s (%(lineno)d) - [%(levelname)s] : %(message)s",
+                        # 日志输出的格式
+                        # -8表示占位符，让输出左对齐，输出长度都为8位
+                        datefmt="%Y-%m-%d %H:%M:%S"  # 时间输出的格式
+                        )
+    sh = logging.StreamHandler()
+    sh.setLevel(config.logging_level)
+    sh.setFormatter(colorlog.ColoredFormatter(
+        fmt="%(log_color)s[%(asctime)s.%(msecs)03d] %(filename)s (%(lineno)d) - [%(levelname)s] : "
+            "%(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        log_colors=log_colors_config
+    ))
+    logging.getLogger().addHandler(sh)
+
 
     # 主启动流程
     openai_interact = pkg.openai.manager.OpenAIInteract(config.openai_config['api_key'], config.completion_api_params)
@@ -49,12 +78,15 @@ if __name__ == '__main__':
         sys.exit(0)
     main()
 
+    logging.info('程序启动完成')
+
     while True:
         try:
             time.sleep(86400)
         except KeyboardInterrupt:
             try:
                 for session in pkg.openai.session.sessions:
+                    logging.info('持久化session: %s', session)
                     pkg.openai.session.sessions[session].persistence()
             except Exception as e:
                 if not isinstance(e, KeyboardInterrupt):

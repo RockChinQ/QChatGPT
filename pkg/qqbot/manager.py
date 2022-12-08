@@ -4,11 +4,16 @@ from func_timeout import func_set_timeout, FunctionTimedOut
 import datetime
 import logging
 
-help_text = """帮助信息：
+help_text = """此机器人通过调用OpenAI的GPT-3大型语言模型生成回复，不具有情感。
+你可以用自然语言与其交流，回复的消息中[GPT]开头的为模型生成的语言，[bot]开头的为程序提示。
+你可以通过QQ 1010553892 联系作者
+欢迎到github.com/RockChinQ/QChatGPT 给个star
+
+帮助信息：
 !help - 显示帮助
 !reset - 重置会话
-!last - 切换到上一次的对话
-!next - 切换到下一次的对话
+!last - 切换到前一次的对话
+!next - 切换到后一次的对话
 !prompt - 显示当前对话所有内容
 !list - 列出所有历史会话"""
 
@@ -61,6 +66,9 @@ class QQBotManager:
         session_name = "{}_{}".format(launcher_type, launcher_id)
 
         if text_message.startswith('!') or text_message.startswith("！"):  # 指令
+
+            logging.info("[{}]发起指令:{}".format(session_name, text_message[:min(20, len(text_message))]+("..." if len(text_message) > 20 else "")))
+
             cmd = text_message[1:].strip().split(' ')[0]
 
             params = text_message[1:].strip().split(' ')[1:]
@@ -72,18 +80,18 @@ class QQBotManager:
             elif cmd == 'last':
                 result = pkg.openai.session.get_session(session_name).last_session()
                 if result is None:
-                    reply = "[bot]没有上一次的对话"
+                    reply = "[bot]没有前一次的对话"
                 else:
                     datetime_str = datetime.datetime.fromtimestamp(result.create_timestamp).strftime('%Y-%m-%d %H:%M:%S')
-                    reply = "[bot]已切换到上一次的对话：\n创建时间:{}\n".format(datetime_str) + result.prompt[:min(100, len(result.prompt))] + \
+                    reply = "[bot]已切换到前一次的对话：\n创建时间:{}\n".format(datetime_str) + result.prompt[:min(100, len(result.prompt))] + \
                             ("..." if len(result.prompt) > 100 else "#END#")
             elif cmd == 'next':
                 result = pkg.openai.session.get_session(session_name).next_session()
                 if result is None:
-                    reply = "[bot]没有下一次的对话"
+                    reply = "[bot]没有后一次的对话"
                 else:
                     datetime_str = datetime.datetime.fromtimestamp(result.create_timestamp).strftime('%Y-%m-%d %H:%M:%S')
-                    reply = "[bot]已切换到下一次的对话：\n创建时间:{}\n".format(datetime_str) + result.prompt[:min(100, len(result.prompt))] + \
+                    reply = "[bot]已切换到后一次的对话：\n创建时间:{}\n".format(datetime_str) + result.prompt[:min(100, len(result.prompt))] + \
                             ("..." if len(result.prompt) > 100 else "#END#")
             elif cmd == 'prompt':
                 reply = "[bot]当前对话所有内容：\n" + pkg.openai.session.get_session(session_name).prompt
@@ -111,18 +119,23 @@ class QQBotManager:
                         if results[i]['create_timestamp'] == pkg.openai.session.get_session(session_name).create_timestamp:
                             current = i + page * 10
 
-                    reply += "以上信息倒序排列"
+                    reply += "\n以上信息倒序排列"
                     if current != -1:
                         reply += ",当前会话是 #{}\n".format(current)
                     else:
                         reply += ",当前处于全新会话或不在此页"
 
         else:  # 消息
+            logging.info("[{}]发送消息:{}".format(session_name, text_message[:min(20, len(text_message))]+("..." if len(text_message) > 20 else "")))
+
             session = pkg.openai.session.get_session(session_name)
             try:
                 reply = "[GPT]" + session.append(text_message)
             except Exception as e:
+                logging.exception(e)
                 reply = "[bot]err:{}".format(e)
+
+        logging.info("回复[{}]消息:{}".format(session_name, reply[:min(100, len(reply))]+("..." if len(reply) > 100 else "")))
 
         return reply
 
