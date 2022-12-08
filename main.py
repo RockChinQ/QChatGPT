@@ -4,11 +4,6 @@ import sys
 import threading
 import time
 
-import pkg.openai.manager
-import pkg.database.manager
-import pkg.openai.session
-import pkg.qqbot.manager
-
 import logging
 import colorlog
 
@@ -29,11 +24,6 @@ def init_db():
 
 
 def main():
-    # 检查是否有config.py,如果没有就把config-template.py复制一份,并退出程序
-    if not os.path.exists('config.py'):
-        shutil.copy('config-template.py', 'config.py')
-        print('请先在config.py中填写配置')
-        return
     # 导入config.py
     assert os.path.exists('config.py')
     import config
@@ -55,7 +45,6 @@ def main():
     ))
     logging.getLogger().addHandler(sh)
 
-
     # 主启动流程
     openai_interact = pkg.openai.manager.OpenAIInteract(config.openai_config['api_key'], config.completion_api_params)
 
@@ -73,9 +62,20 @@ def main():
 
 
 if __name__ == '__main__':
+    # 检查是否有config.py,如果没有就把config-template.py复制一份,并退出程序
+    if not os.path.exists('config.py'):
+        shutil.copy('config-template.py', 'config.py')
+        print('请先在config.py中填写配置')
+
     if len(sys.argv) > 1 and sys.argv[1] == 'init_db':
         init_db()
         sys.exit(0)
+
+    import pkg.openai.manager
+    import pkg.database.manager
+    import pkg.openai.session
+    import pkg.qqbot.manager
+
     main()
 
     logging.info('程序启动完成')
