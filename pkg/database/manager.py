@@ -1,3 +1,4 @@
+import threading
 import time
 
 import pymysql
@@ -26,8 +27,16 @@ class DatabaseManager:
 
         self.reconnect()
 
+        heartbeat_proxy = threading.Thread(target=self.heartbeat, daemon=True)
+        heartbeat_proxy.start()
+
         global inst
         inst = self
+
+    def heartbeat(self):
+        while True:
+            self.conn.ping(reconnect=True)
+            time.sleep(30)
 
     def reconnect(self):
         self.conn = pymysql.connect(host=self.host, port=self.port, user=self.user, password=self.password,
@@ -43,6 +52,7 @@ class DatabaseManager:
             `number` bigint not null,
             `create_timestamp` bigint not null,
             `last_interact_timestamp` bigint not null,
+            `status` varchar(255) not null default 'on_going',
             `prompt` text not null
         )
         """)
@@ -70,11 +80,16 @@ class DatabaseManager:
             """.format(last_interact_timestamp, escape_string(prompt), subject_type,
                        subject_number, create_timestamp))
 
+    def explicit_close_session(self, session_name: str, create_timestamp: int):
+        self.cursor.execute("""
+        update `sessions` set `status` = 'explicitly_closed' where `name` = '{}' and `create_timestamp` = {}
+        """.format(session_name, create_timestamp))
+
     # 记载还没过期的session数据
     def load_valid_sessions(self) -> dict:
         # 从数据库中加载所有还没过期的session
         self.cursor.execute("""
-        select `name`, `type`, `number`, `create_timestamp`, `last_interact_timestamp`, `prompt` 
+        select `name`, `type`, `number`, `create_timestamp`, `last_interact_timestamp`, `prompt`, `status`
         from `sessions` where `last_interact_timestamp` > {}
         """.format(int(time.time()) - config.session_expire_time))
         results = self.cursor.fetchall()
@@ -86,14 +101,21 @@ class DatabaseManager:
             create_timestamp = result[3]
             last_interact_timestamp = result[4]
             prompt = result[5]
+            status = result[6]
 
-            sessions[session_name] = {
-                'subject_type': subject_type,
-                'subject_number': subject_number,
-                'create_timestamp': create_timestamp,
-                'last_interact_timestamp': last_interact_timestamp,
-                'prompt': prompt
-            }
+            # 当且仅当最后一个该对象的会话是on_going状态时，才会被加载
+            if status == 'on_going':
+                sessions[session_name] = {
+                    'subject_type': subject_type,
+                    'subject_number': subject_number,
+                    'create_timestamp': create_timestamp,
+                    'last_interact_timestamp': last_interact_timestamp,
+                    'prompt': prompt
+                }
+            else:
+                if session_name in sessions:
+                    del sessions[session_name]
+
         return sessions
 
 

@@ -63,7 +63,7 @@ class QQBotManager:
             if cmd == 'help':
                 reply = "[bot]" + help_text
             elif cmd == 'reset':
-                pkg.openai.session.get_session(session_name).reset()
+                pkg.openai.session.get_session(session_name).reset(explicit=True)
                 reply = "[bot]会话已重置"
             elif cmd == 'last':
                 pass

@@ -6,6 +6,11 @@ import pkg.database.manager
 sessions = {}
 
 
+class SessionOfflineStatus:
+    ON_GOING = 'on_going'
+    EXPLICITLY_CLOSED = 'explicitly_closed'
+
+
 def load_sessions():
     global sessions
 
@@ -89,9 +94,11 @@ class Session:
         db_inst.persistence_session(subject_type, subject_number, self.create_timestamp, self.last_interact_timestamp,
                                     self.prompt)
 
-    def reset(self):
+    def reset(self, explicit: bool = False):
         if self.prompt != '':
             self.persistence()
+            if explicit:
+                pkg.database.manager.get_inst().explicit_close_session(self.name, self.create_timestamp)
         self.prompt = ''
         self.create_timestamp = int(time.time())
         self.last_interact_timestamp = 0
