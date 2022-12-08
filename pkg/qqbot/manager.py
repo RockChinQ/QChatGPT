@@ -118,7 +118,10 @@ class QQBotManager:
 
         else:  # 消息
             session = pkg.openai.session.get_session(session_name)
-            reply = "[GPT]" + session.append(text_message)
+            try:
+                reply = "[GPT]" + session.append(text_message)
+            except Exception as e:
+                reply = "[bot]err:{}".format(e)
 
         return reply
 
@@ -147,7 +150,7 @@ class QQBotManager:
                         continue
 
                 if failed == self.retry:
-                    reply = "err:请求超时"
+                    reply = "[bot]err:请求超时"
 
                 processing.remove("person_{}".format(event.sender.id))
 
