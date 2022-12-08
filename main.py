@@ -66,6 +66,7 @@ if __name__ == '__main__':
     if not os.path.exists('config.py'):
         shutil.copy('config-template.py', 'config.py')
         print('请先在config.py中填写配置')
+        sys.exit(0)
 
     if len(sys.argv) > 1 and sys.argv[1] == 'init_db':
         init_db()
