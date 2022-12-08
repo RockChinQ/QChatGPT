@@ -35,8 +35,8 @@ class DatabaseManager:
 
     def heartbeat(self):
         while True:
-            self.conn.ping(reconnect=True)
             time.sleep(30)
+            self.conn.ping(reconnect=True)
 
     def reconnect(self):
         self.conn = pymysql.connect(host=self.host, port=self.port, user=self.user, password=self.password,

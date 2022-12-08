@@ -53,5 +53,11 @@ if __name__ == '__main__':
         try:
             time.sleep(86400)
         except KeyboardInterrupt:
+            try:
+                for session in pkg.openai.session.sessions:
+                    pkg.openai.session.sessions[session].persistence()
+            except Exception as e:
+                if not isinstance(e, KeyboardInterrupt):
+                    raise e
             print("程序退出")
             break
