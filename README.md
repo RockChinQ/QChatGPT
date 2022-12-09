@@ -14,10 +14,19 @@
 ## 项目结构
 
 - `pkg.database` 数据库操作相关
+  - 数据库用于存放会话的历史记录，确保在程序重启后能记住刚刚进行的对话内容
 - `pkg.openai` OpenAI API相关
+  - 用于调用OpenAI的API生成回复内容
 - `pkg.qqbot` QQ机器人相关
+  - 处理QQ收到的消息，调用API并进行回复
 
 ## 部署
+
+- 请使用Python 3.9.x以上版本
+- 建议使用MySQL 8.0以上版本
+- 请注意OpenAI账号额度消耗
+  - 每个账户仅有18美元免费额度，如未绑定银行卡，则会在超出时报错
+  - OpenAI收费标准：默认使用的`text-davinci-003`模型 0.02美元/千字
 
 ### 1. 注册OpenAI账号并取得api_key
 
@@ -47,13 +56,13 @@ git clone https://github.com/RockChinQ/QChatGPT
 2. 安装依赖
 
 ```bash
-pip install pymysql yiri-mirai openai colorlog func_timeout
+pip3 install pymysql yiri-mirai openai colorlog func_timeout
 ```
 
 3. 运行一次主程序，生成配置文件
 
 ```bash
-python main.py
+python3 main.py
 ```
 
 4. 编辑配置文件`config.py`
@@ -63,7 +72,7 @@ python main.py
 5. 运行主程序
 
 ```bash
-python main.py
+python3 main.py
 ```
 
 无报错信息即为运行成功
