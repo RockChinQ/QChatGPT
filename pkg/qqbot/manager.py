@@ -6,20 +6,7 @@ from func_timeout import func_set_timeout, FunctionTimedOut
 import datetime
 import logging
 
-help_text = """此机器人通过调用OpenAI的GPT-3大型语言模型生成回复，不具有情感。
-你可以用自然语言与其交流，回复的消息中[GPT]开头的为模型生成的语言，[bot]开头的为程序提示。
-你可以通过QQ 1010553892 联系作者
-请不要用其生成整篇文章，因为每次只会向模型提交少部分文字，生成文章可能会导致偏题、前后矛盾等问题
-每次会话最后一次交互后{}分钟后会自动结束，结束后将开启新会话，如需继续前一次会话请发送 !last 重新开启
-欢迎到github.com/RockChinQ/QChatGPT 给个star
-
-帮助信息：
-!help - 显示帮助
-!reset - 重置会话
-!last - 切换到前一次的对话
-!next - 切换到后一次的对话
-!prompt - 显示当前对话所有内容
-!list - 列出所有历史会话""".format(config.session_expire_time // 60)
+help_text = config.help_message
 
 inst = None
 
