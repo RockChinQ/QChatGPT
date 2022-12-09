@@ -18,6 +18,7 @@ log_colors_config = {
 
 def init_db():
     import config
+    import pkg.database.manager
     database = pkg.database.manager.DatabaseManager(**config.mysql_config)
 
     database.initialize_database()
