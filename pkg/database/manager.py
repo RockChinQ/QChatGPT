@@ -90,6 +90,11 @@ class DatabaseManager:
         update `sessions` set `status` = 'on_going' where `name` = '{}' and `create_timestamp` = {}
         """.format(session_name, create_timestamp))
 
+    def set_session_expired(self, session_name: str, create_timestamp: int):
+        self.cursor.execute("""
+        update `sessions` set `status` = 'expired' where `name` = '{}' and `create_timestamp` = {}
+        """.format(session_name, create_timestamp))
+
     # 记载还没过期的session数据
     def load_valid_sessions(self) -> dict:
         # 从数据库中加载所有还没过期的session

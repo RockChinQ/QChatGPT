@@ -1,6 +1,8 @@
 import logging
+import threading
 import time
 
+import config
 import pkg.openai.manager
 import pkg.database.manager
 
@@ -65,11 +67,31 @@ class Session:
         self.name = name
         self.create_timestamp = int(time.time())
         self.last_interact_timestamp = int(time.time())
+        self.schedule()
+
+    def schedule(self):
+        threading.Thread(target=self.expire_check_timer_loop, args=(self.create_timestamp,)).start()
+
+    # 检查session是否已经过期
+    def expire_check_timer_loop(self, create_timestamp: int):
+        while True:
+            time.sleep(60)
+
+            # 不是此session已更换，退出
+            if self.create_timestamp != create_timestamp:
+                return
+            if int(time.time()) - self.last_interact_timestamp > config.session_expire_time:
+                logging.info('session {} 已过期'.format(self.name))
+                self.reset(expired=True, schedule_new=False)
+
+                # 删除此session
+                global sessions
+                del sessions[self.name]
+                return
 
     # 请求回复
     # 这个函数是阻塞的
     def append(self, text: str) -> str:
-        self.prompt += self.user_name + ':' + text + '\n' + self.bot_name + ':'
         self.last_interact_timestamp = int(time.time())
 
         # 向API请求补全
@@ -134,15 +156,21 @@ class Session:
         db_inst.persistence_session(subject_type, subject_number, self.create_timestamp, self.last_interact_timestamp,
                                     self.prompt)
 
-    def reset(self, explicit: bool = False):
+    def reset(self, explicit: bool = False, expired: bool = False, schedule_new: bool = True):
         if self.prompt != '':
             self.persistence()
             if explicit:
                 pkg.database.manager.get_inst().explicit_close_session(self.name, self.create_timestamp)
+
+            if expired:
+                pkg.database.manager.get_inst().set_session_expired(self.name, self.create_timestamp)
         self.prompt = ''
         self.create_timestamp = int(time.time())
         self.last_interact_timestamp = int(time.time())
         self.just_switched_to_exist_session = False
+
+        if schedule_new:
+            self.schedule()
 
     # 将本session的数据库状态设置为on_going
     def set_ongoing(self):
