@@ -72,6 +72,8 @@ python3 main.py
 
 5. 运行主程序
 
+- 如提示安装`uvicorn`或`hypercorn`请不要安装，这两个不是必需的，目前存在未知原因bug
+
 ```bash
 python3 main.py
 ```
