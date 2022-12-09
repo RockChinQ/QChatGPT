@@ -47,7 +47,7 @@ git clone https://github.com/RockChinQ/QChatGPT
 2. 安装依赖
 
 ```bash
-pip install pymysql yiri-mirai openai colorlog
+pip install pymysql yiri-mirai openai colorlog func_timeout
 ```
 
 3. 运行一次主程序，生成配置文件

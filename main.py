@@ -7,7 +7,6 @@ import time
 import logging
 import colorlog
 
-
 log_colors_config = {
     'DEBUG': 'green',  # cyan white
     'INFO': 'white',
@@ -15,6 +14,7 @@ log_colors_config = {
     'ERROR': 'red',
     'CRITICAL': 'bold_red',
 }
+
 
 def init_db():
     import config
@@ -46,6 +46,11 @@ def main():
     ))
     logging.getLogger().addHandler(sh)
 
+    import pkg.openai.manager
+    import pkg.database.manager
+    import pkg.openai.session
+    import pkg.qqbot.manager
+
     # 主启动流程
     openai_interact = pkg.openai.manager.OpenAIInteract(config.openai_config['api_key'], config.completion_api_params)
 
@@ -60,25 +65,6 @@ def main():
 
     qq_bot_thread = threading.Thread(target=qqbot.bot.run, args=(), daemon=True)
     qq_bot_thread.start()
-
-
-if __name__ == '__main__':
-    # 检查是否有config.py,如果没有就把config-template.py复制一份,并退出程序
-    if not os.path.exists('config.py'):
-        shutil.copy('config-template.py', 'config.py')
-        print('请先在config.py中填写配置')
-        sys.exit(0)
-
-    if len(sys.argv) > 1 and sys.argv[1] == 'init_db':
-        init_db()
-        sys.exit(0)
-
-    import pkg.openai.manager
-    import pkg.database.manager
-    import pkg.openai.session
-    import pkg.qqbot.manager
-
-    main()
 
     logging.info('程序启动完成')
 
@@ -95,3 +81,17 @@ if __name__ == '__main__':
                     raise e
             print("程序退出")
             break
+
+
+if __name__ == '__main__':
+    # 检查是否有config.py,如果没有就把config-template.py复制一份,并退出程序
+    if not os.path.exists('config.py'):
+        shutil.copy('config-template.py', 'config.py')
+        print('请先在config.py中填写配置')
+        sys.exit(0)
+
+    if len(sys.argv) > 1 and sys.argv[1] == 'init_db':
+        init_db()
+        sys.exit(0)
+
+    main()
