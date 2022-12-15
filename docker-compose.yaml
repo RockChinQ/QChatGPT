@@ -1,0 +1,24 @@
+version: "3.4"
+services:
+  mirai:
+    build:
+      context: .
+      dockerfile: _mirai.Dockerfile
+    environment:
+      LANG: "C.UTF-8"
+    restart: always
+    network_mode: host
+    volumes:
+    - ./mirai:/mirai
+  bot:
+    build:
+      context: .
+      dockerfile: _bot.Dockerfile
+    restart: always
+    environment:
+      LANG: "C.UTF-8"
+    volumes:
+      - ./bot:/bot
+    network_mode: host
+    depends_on:
+      - mirai
