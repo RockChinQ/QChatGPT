@@ -1,4 +1,4 @@
-requests~=2.28.1
+requests~=2.28.2
 openai~=0.26.5
 pip~=22.3.1
 dulwich~=0.21.3
