@@ -5,5 +5,5 @@ dulwich~=0.21.3
 colorlog~=6.6.0
 yiri-mirai~=0.2.6.1
 websockets~=10.4
-urllib3~=1.26.10
+urllib3~=1.26.14
 func_timeout~=4.3.5
