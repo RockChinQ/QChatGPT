@@ -1,6 +1,6 @@
 # QChatGPT🤖
 
-> 2023/3/18 现已支持GPT-4 API（内测），请查看 `config-template.py`中的 `completion_api_params`  
+> 2023/3/18 现已支持GPT-4 API（内测），请查看 `config-template.py`中的 `completion_api_params`
 > 2023/3/15 逆向库已支持New Bing，使用方法查看[插件文档](https://github.com/RockChinQ/revLibs)
 
 - **客官，来都来了，不点个⭐吗？**
@@ -33,7 +33,6 @@
 ### 图片绘制
 
 - OpenAI DALL·E模型, 本项目原生支持, 使用方法查看[Wiki功能使用页](https://github.com/RockChinQ/QChatGPT/wiki/%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8#%E5%8A%9F%E8%83%BD%E7%82%B9%E5%88%97%E4%B8%BE)
-- API2D中转服务，本项目原生支持，使用方法同上
 - NovelAI API, 由[插件](https://github.com/dominoar/QCPNovelAi)接入
 
 ### 语音生成
@@ -163,7 +162,6 @@
 > [手把手教你如何注册ChatGPT，超级详细](https://guxiaobei.com/51461)
 
 注册成功后请前往[个人中心查看](https://beta.openai.com/account/api-keys)api_key
-完成注册后，使用以下自动化或手动部署步骤
 
 ### （可选）注册API2D账号
 
@@ -176,6 +174,8 @@
 > 建议使用GitHub账号第三方登录，可获得50P 试用点数
 
 注册成功后请到[后台](https://api2d.com/forward_key/list)获取Forward Key
+
+
 完成注册后，使用以下自动化或手动部署步骤
 
 ### - 自动化部署
@@ -284,6 +284,7 @@ python3 main.py
 - [RockChinQ/WaitYiYan](https://github.com/RockChinQ/WaitYiYan) - 实时获取百度 `文心一言`等待列表人数
 - [chordfish-k/QChartGPT_Emoticon_Plugin](https://github.com/chordfish-k/QChartGPT_Emoticon_Plugin) - 使机器人根据回复内容发送表情包
 - [oliverkirk-sudo/ChatPoeBot](https://github.com/oliverkirk-sudo/ChatPoeBot) - 接入[Poe](https://poe.com/)上的机器人
+- [wenyinos/ChatAPI2D](https://github.com/wenyinos/ChatAPI2D) - 通过API2D的中转服务访问OpenAI官方接口
 
 </details>
 
