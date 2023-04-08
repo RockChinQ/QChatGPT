@@ -1,12 +1,12 @@
 # QChatGPT🤖
 
-> 2023/3/18 现已支持GPT-4 API（内测），请查看`config-template.py`中的`completion_api_params`  
-> 2023/3/15 逆向库已支持New Bing，使用方法查看[插件文档](https://github.com/RockChinQ/revLibs)  
+> 2023/3/18 现已支持GPT-4 API（内测），请查看 `config-template.py`中的 `completion_api_params`
+> 2023/3/15 逆向库已支持New Bing，使用方法查看[插件文档](https://github.com/RockChinQ/revLibs)
 
 - **客官，来都来了，不点个⭐吗？**
 - 到[项目Wiki](https://github.com/RockChinQ/QChatGPT/wiki)可了解项目详细信息
-- 官方交流、答疑群: 656285629  
-  - **进群提问前请您`确保`已经找遍文档和issue均无法解决**  
+- 官方交流、答疑群: 656285629
+  - **进群提问前请您 `确保`已经找遍文档和issue均无法解决**
 - 社区群（内有一键部署包、图形化界面等资源）: 362515018
 - QQ频道机器人见[QQChannelChatGPT](https://github.com/Soulter/QQChannelChatGPT)
 - 欢迎各种形式的贡献，请查看[贡献指引](CONTRIBUTING.md)
@@ -19,8 +19,9 @@
 ### 文字对话
 
 - OpenAI GPT-3.5模型(ChatGPT API), 本项目原生支持, 默认使用
-- OpenAI GPT-3模型, 本项目原生支持, 部署完成后前往`config.py`切换
-- OpenAI GPT-4模型, 本项目原生支持, 目前需要您的账户通过OpenAI的内测申请, 请前往`config.py`切换
+- OpenAI GPT-3模型, 本项目原生支持, 部署完成后前往 `config.py`切换
+- OpenAI GPT-4模型, 本项目原生支持, 目前需要您的账户通过OpenAI的内测申请, 请前往 `config.py`切换
+- API2D中转服务，本项目原生支持，包括以上OpenAI GPT模型。计费规则不同，详见 [https://api2d.com/wiki/doc#usage]()
 - ChatGPT网页版GPT-3.5模型, 由[插件](https://github.com/RockChinQ/revLibs)接入
 - ChatGPT网页版GPT-4模型, 目前需要ChatGPT Plus订阅, 由[插件](https://github.com/RockChinQ/revLibs)接入
 - New Bing逆向库, 由[插件](https://github.com/RockChinQ/revLibs)接入
@@ -32,13 +33,13 @@
 ### 图片绘制
 
 - OpenAI DALL·E模型, 本项目原生支持, 使用方法查看[Wiki功能使用页](https://github.com/RockChinQ/QChatGPT/wiki/%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8#%E5%8A%9F%E8%83%BD%E7%82%B9%E5%88%97%E4%B8%BE)
+- API2D中转服务，本项目原生支持，使用方法同上
 - NovelAI API, 由[插件](https://github.com/dominoar/QCPNovelAi)接入
 
 ### 语音生成
 
 - TTS+VITS, 由[插件](https://github.com/dominoar/QChatPlugins)接入
 - Plachta/VITS-Umamusume-voice-synthesizer, 由[插件](https://github.com/oliverkirk-sudo/chat_voice)接入
-
 
 </details>
 
@@ -52,85 +53,97 @@
 <details>
 <summary>✅支持敏感词过滤，避免账号风险</summary>
 
-  - 难以监测机器人与用户对话时的内容，故引入此功能以减少机器人风险
-  - 加入了百度云内容审核，在`config.py`中修改`baidu_check`的值，并填写`baidu_api_key`和`baidu_secret_key`以开启此功能
-  - 编辑`sensitive.json`，并在`config.py`中修改`sensitive_word_filter`的值以开启此功能
+- 难以监测机器人与用户对话时的内容，故引入此功能以减少机器人风险
+- 加入了百度云内容审核，在 `config.py`中修改 `baidu_check`的值，并填写 `baidu_api_key`和 `baidu_secret_key`以开启此功能
+- 编辑 `sensitive.json`，并在 `config.py`中修改 `sensitive_word_filter`的值以开启此功能
+
 </details>
 
 <details>
 <summary>✅群内多种响应规则，不必at</summary>
 
-  - 默认回复`ai`作为前缀或`@`机器人的消息
-  - 详细见`config.py`中的`response_rules`字段
+- 默认回复 `ai`作为前缀或 `@`机器人的消息
+- 详细见 `config.py`中的 `response_rules`字段
+
 </details>
 
 <details>
 <summary>✅完善的多api-key管理，超额自动切换</summary>
 
-  - 支持配置多个`api-key`，内部统计使用量并在超额时自动切换
-  - 请在`config.py`中修改`openai_config`的值以设置`api-key`
-  - 可以在`config.py`中修改`api_key_fee_threshold`来自定义切换阈值
-  - 运行期间向机器人说`!usage`以查看当前使用情况
+- 支持配置多个 `api-key`，内部统计使用量并在超额时自动切换
+- 请在 `config.py`中修改 `openai_config`的值以设置 `api-key`
+- 可以在 `config.py`中修改 `api_key_fee_threshold`来自定义切换阈值
+- 运行期间向机器人说 `!usage`以查看当前使用情况
+
 </details>
 
 <details>
 <summary>✅支持预设指令文字</summary>
 
-  - 支持以自然语言预设文字，自定义机器人人格等信息
-  - 详见`config.py`中的`default_prompt`部分
-  - 支持设置多个预设情景，并通过!reset、!default等指令控制，详细请查看[wiki指令](https://github.com/RockChinQ/QChatGPT/wiki/%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8#%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8C%87%E4%BB%A4)
+- 支持以自然语言预设文字，自定义机器人人格等信息
+- 详见 `config.py`中的 `default_prompt`部分
+- 支持设置多个预设情景，并通过!reset、!default等指令控制，详细请查看[wiki指令](https://github.com/RockChinQ/QChatGPT/wiki/%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8#%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8C%87%E4%BB%A4)
+
 </details>
 
 <details>
 <summary>✅支持对话、绘图等模型，可玩性更高</summary>
 
-  - 现已支持OpenAI的对话`Completion API`和绘图`Image API`
-  - 向机器人发送指令`!draw <prompt>`即可使用绘图模型
+- 现已支持OpenAI的对话 `Completion API`和绘图 `Image API`
+- 向机器人发送指令 `!draw <prompt>`即可使用绘图模型
+
 </details>
 <details>
 <summary>✅支持指令控制热重载、热更新</summary>
 
-  - 允许在运行期间修改`config.py`或其他代码后，以管理员账号向机器人发送指令`!reload`进行热重载，无需重启
-  - 运行期间允许以管理员账号向机器人发送指令`!update`进行热更新，拉取远程最新代码并执行热重载
+- 允许在运行期间修改 `config.py`或其他代码后，以管理员账号向机器人发送指令 `!reload`进行热重载，无需重启
+- 运行期间允许以管理员账号向机器人发送指令 `!update`进行热更新，拉取远程最新代码并执行热重载
+
 </details>
 <details>
 <summary>✅支持插件加载🧩</summary>
 
-  - 自行实现插件加载器及相关支持
-  - 详细查看[插件使用页](https://github.com/RockChinQ/QChatGPT/wiki/%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8)
+- 自行实现插件加载器及相关支持
+- 详细查看[插件使用页](https://github.com/RockChinQ/QChatGPT/wiki/%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8)
+
 </details>
 <details>
 <summary>✅私聊、群聊黑名单机制</summary>
 
-  - 支持将人或群聊加入黑名单以忽略其消息
-  - 详见Wiki`加入黑名单`节
+- 支持将人或群聊加入黑名单以忽略其消息
+- 详见Wiki `加入黑名单`节
+
 </details>
 <details>
 <summary>✅长消息处理策略</summary>
 
-  - 支持将长消息转换成图片或消息记录组件，避免消息刷屏
-  - 请查看`config.py`中`blob_message_strategy`等字段
+- 支持将长消息转换成图片或消息记录组件，避免消息刷屏
+- 请查看 `config.py`中 `blob_message_strategy`等字段
+
 </details>
 <details>
 <summary>✅回复速度限制</summary>
 
-  - 支持限制单会话内每分钟可进行的对话次数
-  - 具有“等待”和“丢弃”两种策略
-    - “等待”策略：在获取到回复后，等待直到此次响应时间达到对话响应时间均值
-    - “丢弃”策略：此分钟内对话次数达到限制时，丢弃之后的对话
-  - 详细请查看config.py中的相关配置
+- 支持限制单会话内每分钟可进行的对话次数
+- 具有“等待”和“丢弃”两种策略
+  - “等待”策略：在获取到回复后，等待直到此次响应时间达到对话响应时间均值
+  - “丢弃”策略：此分钟内对话次数达到限制时，丢弃之后的对话
+- 详细请查看config.py中的相关配置
+
 </details>
 <details>
 <summary>✅支持使用网络代理</summary>
 
-  - 目前已支持正向代理访问接口
-  - 详细请查看config.py中的`openai_config`的说明
+- 目前已支持正向代理访问接口
+- 详细请查看config.py中的 `openai_config`的说明
+
 </details>
 <details>
 <summary>✅支持自定义提示内容</summary>
 
-  - 允许用户自定义报错、帮助等提示信息
-  - 请查看`tips.py`
+- 允许用户自定义报错、帮助等提示信息
+- 请查看 `tips.py`
+
 </details>
 </details>
 
@@ -138,7 +151,7 @@
 
 ## 🔩部署
 
-**部署过程中遇到任何问题，请先在[QChatGPT](https://github.com/RockChinQ/QChatGPT/issues)或[qcg-installer](https://github.com/RockChinQ/qcg-installer/issues)的issue里进行搜索**  
+**部署过程中遇到任何问题，请先在[QChatGPT](https://github.com/RockChinQ/QChatGPT/issues)或[qcg-installer](https://github.com/RockChinQ/qcg-installer/issues)的issue里进行搜索**
 
 ### - 注册OpenAI账号
 
@@ -146,10 +159,23 @@
 
 参考以下文章自行注册
 
-> [国内注册ChatGPT的方法(100%可用)](https://www.pythonthree.com/register-openai-chatgpt/)  
+> [国内注册ChatGPT的方法(100%可用)](https://www.pythonthree.com/register-openai-chatgpt/)
 > [手把手教你如何注册ChatGPT，超级详细](https://guxiaobei.com/51461)
 
-注册成功后请前往[个人中心查看](https://beta.openai.com/account/api-keys)api_key  
+注册成功后请前往[个人中心查看](https://beta.openai.com/account/api-keys)api_key
+完成注册后，使用以下自动化或手动部署步骤
+
+### （可选）注册API2D账号
+
+> 因OpenAI账号注册繁琐，可使用API2D提供的中转接口实现，无需国外手机号验证，支持WeChat和大陆信用卡充值
+
+自行注册
+
+> [https://api2d.com/](https://api2d.com/)  （可能无法打开需要特殊手段）
+>
+> 建议使用GitHub账号第三方登录，可获得50P 试用点数
+
+注册成功后请到[后台](https://api2d.com/forward_key/list)获取Forward Key
 完成注册后，使用以下自动化或手动部署步骤
 
 ### - 自动化部署
@@ -159,7 +185,7 @@
 
 #### Docker方式
 
-请查看[此文档](res/docs/docker_deploy.md)  
+请查看[此文档](res/docs/docker_deploy.md)
 由[@mikumifa](https://github.com/mikumifa)贡献
 
 #### 安装器方式
@@ -171,15 +197,16 @@
 </details>
 
 ### - 手动部署
+
 <details>
 <summary>手动部署适用于所有平台</summary>
 
-- 请使用Python 3.9.x以上版本   
+- 请使用Python 3.9.x以上版本
 
 #### 配置Mirai
 
-按照[此教程](https://yiri-mirai.wybxc.cc/tutorials/01/configuration)配置Mirai及YiriMirai  
-启动mirai-console后，使用`login`命令登录QQ账号，保持mirai-console运行状态
+按照[此教程](https://yiri-mirai.wybxc.cc/tutorials/01/configuration)配置Mirai及YiriMirai
+启动mirai-console后，使用 `login`命令登录QQ账号，保持mirai-console运行状态
 
 #### 配置主程序
 
@@ -202,7 +229,7 @@ pip3 install requests yiri-mirai openai colorlog func_timeout dulwich Pillow
 python3 main.py
 ```
 
-4. 编辑配置文件`config.py`
+4. 编辑配置文件 `config.py`
 
 按照文件内注释填写配置信息
 
@@ -216,21 +243,21 @@ python3 main.py
 
 **常见问题**
 
-- mirai登录提示`QQ版本过低`，见[此issue](https://github.com/RockChinQ/QChatGPT/issues/137)
-- 如提示安装`uvicorn`或`hypercorn`请*不要*安装，这两个不是必需的，目前存在未知原因bug
-- 如报错`TypeError: As of 3.10, the *loop* parameter was removed from Lock() since it is no longer necessary`, 请参考 [此处](https://github.com/RockChinQ/QChatGPT/issues/5)
+- mirai登录提示 `QQ版本过低`，见[此issue](https://github.com/RockChinQ/QChatGPT/issues/137)
+- 如提示安装 `uvicorn`或 `hypercorn`请*不要*安装，这两个不是必需的，目前存在未知原因bug
+- 如报错 `TypeError: As of 3.10, the *loop* parameter was removed from Lock() since it is no longer necessary`, 请参考 [此处](https://github.com/RockChinQ/QChatGPT/issues/5)
 
 </details>
 
 ## 🚀使用
 
-**部署完成后必看: [指令说明](https://github.com/RockChinQ/QChatGPT/wiki/%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8#%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8C%87%E4%BB%A4)**  
-所有功能查看[Wiki功能使用页](https://github.com/RockChinQ/QChatGPT/wiki/%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F)  
+**部署完成后必看: [指令说明](https://github.com/RockChinQ/QChatGPT/wiki/%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8#%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%8C%87%E4%BB%A4)**
+所有功能查看[Wiki功能使用页](https://github.com/RockChinQ/QChatGPT/wiki/%E5%8A%9F%E8%83%BD%E4%BD%BF%E7%94%A8#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F)
 
 ## 🧩插件生态
 
-现已支持自行开发插件对功能进行扩展或自定义程序行为  
-详见[Wiki插件使用页](https://github.com/RockChinQ/QChatGPT/wiki/%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8)  
+现已支持自行开发插件对功能进行扩展或自定义程序行为
+详见[Wiki插件使用页](https://github.com/RockChinQ/QChatGPT/wiki/%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8)
 开发教程见[Wiki插件开发页](https://github.com/RockChinQ/QChatGPT/wiki/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91)
 
 <details>
@@ -238,10 +265,10 @@ python3 main.py
 
 ### 示例插件
 
-在`tests/plugin_examples`目录下，将其整个目录复制到`plugins`目录下即可使用
+在 `tests/plugin_examples`目录下，将其整个目录复制到 `plugins`目录下即可使用
 
 - `cmdcn` - 主程序指令中文形式
-- `hello_plugin` - 在收到消息`hello`时回复相应消息
+- `hello_plugin` - 在收到消息 `hello`时回复相应消息
 - `urlikethisijustsix` - 收到冒犯性消息时回复相应消息
 
 ### 更多
@@ -254,10 +281,10 @@ python3 main.py
 - [dominoar/QChatPlugins](https://github.com/dominoar/QchatPlugins) - dominoar编写的诸多新功能插件（语音输出、Ranimg、屏蔽词规则等）
 - [dominoar/QCP-NovelAi](https://github.com/dominoar/QCP-NovelAi) - NovelAI 故事叙述与绘画
 - [oliverkirk-sudo/chat_voice](https://github.com/oliverkirk-sudo/chat_voice) - 文字转语音输出，使用HuggingFace上的[VITS-Umamusume-voice-synthesizer模型](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer)
-- [RockChinQ/WaitYiYan](https://github.com/RockChinQ/WaitYiYan) - 实时获取百度`文心一言`等待列表人数
+- [RockChinQ/WaitYiYan](https://github.com/RockChinQ/WaitYiYan) - 实时获取百度 `文心一言`等待列表人数
 - [chordfish-k/QChartGPT_Emoticon_Plugin](https://github.com/chordfish-k/QChartGPT_Emoticon_Plugin) - 使机器人根据回复内容发送表情包
 - [oliverkirk-sudo/ChatPoeBot](https://github.com/oliverkirk-sudo/ChatPoeBot) - 接入[Poe](https://poe.com/)上的机器人
-- [wenyinos/ChatAPI2D](https://github.com/wenyinos/ChatAPI2D) - 通过API2D的中转服务访问OpenAI官方接口
+
 </details>
 
 ## 😘致谢

@@ -47,6 +47,19 @@ mirai_http_api_config = {
 #     },
 #     "reverse_proxy": "http://example.com:12345/v1"
 # }
+# 
+# 可使用API2D的中转接口，需要单独充值
+# 此站点为OpenAI代理商，与OpenAI官方的额度无关，计费方式不同，实际计费约为OpenAI官方价格1.5倍
+# 先到 https://api2d.com/forward_key/list 创建Forward Key，使用方法详见 https://api2d.com/wiki/doc
+# API2D配置示例：
+# openai_config = {
+#     "api_key": {
+#         "default": "fkxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+#         "key1": "fkxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+#         "key2": "fkxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+#     },
+#     "reverse_proxy": "https://openai.api2d.net/v1"
+# }
 openai_config = {
     "api_key": {
         "default": "openai_api_key"
