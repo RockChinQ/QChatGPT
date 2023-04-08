@@ -21,7 +21,7 @@
 - OpenAI GPT-3.5模型(ChatGPT API), 本项目原生支持, 默认使用
 - OpenAI GPT-3模型, 本项目原生支持, 部署完成后前往 `config.py`切换
 - OpenAI GPT-4模型, 本项目原生支持, 目前需要您的账户通过OpenAI的内测申请, 请前往 `config.py`切换
-- API2D中转服务，本项目原生支持，包括以上OpenAI GPT模型。计费规则不同，详见 [https://api2d.com/wiki/doc#usage]()
+- API2D中转服务，本项目原生支持，包括以上OpenAI GPT模型。计费规则不同，详见[这里]([https://api2d.com/wiki/doc#usage](https://api2d.com/wiki/doc#usage))
 - ChatGPT网页版GPT-3.5模型, 由[插件](https://github.com/RockChinQ/revLibs)接入
 - ChatGPT网页版GPT-4模型, 目前需要ChatGPT Plus订阅, 由[插件](https://github.com/RockChinQ/revLibs)接入
 - New Bing逆向库, 由[插件](https://github.com/RockChinQ/revLibs)接入
@@ -171,7 +171,7 @@
 
 自行注册
 
-> [https://api2d.com/](https://api2d.com/)  （可能无法打开需要特殊手段）
+> [点此注册](https://api2d.com/)  （可能无法打开需要特殊手段）
 >
 > 建议使用GitHub账号第三方登录，可获得50P 试用点数
 
