@@ -6,4 +6,5 @@ yiri-mirai~=0.2.6.1
 websockets
 urllib3~=1.26.10
 func_timeout~=4.3.5
+nonebot2[fastapi]
 Pillow
