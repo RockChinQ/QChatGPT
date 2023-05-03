@@ -14,6 +14,11 @@
         "http_port": 5700,
         "token": ""
     },
+    "cai_config": {
+        "account": 1234567890,
+        "password": "password",
+        "protocol": "ANDROID_PHONE"
+    },
     "openai_config": {
         "api_key": {
             "default": "openai_api_key"
