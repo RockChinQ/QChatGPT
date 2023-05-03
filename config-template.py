@@ -5,9 +5,10 @@ import logging
 # 目前支持以下适配器:
 # - "yirimirai": mirai的通信框架，YiriMirai框架适配器, 请同时填写下方mirai_http_api_config
 # - "nakuru": go-cqhttp通信框架，请同时填写下方nakuru_config
+# - "cai": wyapx/CAI登录框架适配器，请同时填写下方cai_config
 msg_source_adapter = "yirimirai"
 
-# [必需(与nakuru二选一，取决于msg_source_adapter)] Mirai的配置
+# [必需(与nakuru/CAI三选一，取决于msg_source_adapter)] Mirai的配置
 # 请到配置mirai的步骤中的教程查看每个字段的信息
 # adapter: 选择适配器，目前支持HTTPAdapter和WebSocketAdapter
 # host: 运行mirai的主机地址
@@ -24,13 +25,23 @@ mirai_http_api_config = {
     "qq": 1234567890
 }
 
-# [必需(与mirai二选一，取决于msg_source_adapter)]
+# [必需(与mirai/cai三选一，取决于msg_source_adapter)]
 # 使用nakuru-project框架连接go-cqhttp的配置
 nakuru_config = {
     "host": "localhost",  # go-cqhttp的地址
     "port": 6700,  # go-cqhttp的正向websocket端口
     "http_port": 5700,  # go-cqhttp的正向http端口
     "token": ""  # 若在go-cqhttp的config.yml设置了access_token, 则填写此处
+}
+
+# [必需(与mirai/nakuru三选一，取决于msg_source_adapter)]
+cai_config = {
+    "account": 1234567890,  # 机器人的QQ号
+    "password": "password",  # 机器人的密码
+    # 登录协议，目前支持ANDROID_PAD, ANDROID_PHONE, ANDROID_WATCH, IPAD, MACOS
+    # 若当前协议登录失败，请删除bot/目录所有文件，到此更换协议后重启bot
+    # 重复此操作直到登录成功
+    "protocol": "ANDROID_PHONE"
 }
 
 # [必需] OpenAI的配置
