@@ -51,6 +51,18 @@ def ensure_dependencies():
                     "-i", "https://pypi.tuna.tsinghua.edu.cn/simple",
                     "--trusted-host", "pypi.tuna.tsinghua.edu.cn"])
 
+    # 检查cai框架
+    # 获取res/whls/cai-xxx-py3-none-any.whl文件名
+    file_path = ""
+
+    for file in os.listdir("res/whls"):
+        if file.startswith("cai-") and file.endswith("py3-none-any.whl"):
+            file_path = "res/whls/" + file
+            break
+
+    if file_path != "":
+        pkgmgr.run_pip(['install', file_path, "--upgrade"])
+
 
 known_exception_caught = False
 
