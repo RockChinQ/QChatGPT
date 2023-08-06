@@ -75,25 +75,6 @@ class DataGatherer:
 
         self.report_to_server("text", length)
 
-    def report_image_model_usage(self, size):
-        """调用方报告图片模型请求图片使用量"""
-
-        key_md5 = pkg.utils.context.get_openai_manager().key_mgr.get_using_key_md5()
-
-        if key_md5 not in self.usage:
-            self.usage[key_md5] = {}
-
-        if "image" not in self.usage[key_md5]:
-            self.usage[key_md5]["image"] = {}
-
-        if size not in self.usage[key_md5]["image"]:
-            self.usage[key_md5]["image"][size] = 0
-
-        self.usage[key_md5]["image"][size] += 1
-        self.dump_to_db()
-
-        self.report_to_server("image", 1)
-
     def get_text_length_of_key(self, key):
         """获取指定api-key (明文) 的文字总使用量(本地记录)"""
         key_md5 = hashlib.md5(key.encode('utf-8')).hexdigest()
