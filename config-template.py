@@ -233,12 +233,6 @@ completion_api_params = {
     "presence_penalty": 1.0,
 }
 
-# OpenAI的Image API的参数
-# 具体请查看OpenAI的文档: https://beta.openai.com/docs/api-reference/images/create
-image_api_params = {
-    "size": "256x256",  # 图片尺寸，支持256x256, 512x512, 1024x1024
-}
-
 # 跟踪函数调用
 # 为True时，在每次GPT进行Function Calling时都会输出发送一条回复给用户
 # 同时，一次提问内所有的Function Calling和普通回复消息都会单独发送给用户
@@ -249,9 +243,6 @@ quote_origin = True
 
 # 群内回复消息时是否at发送者
 at_sender = False
-
-# 回复绘图时是否包含图片描述
-include_image_description = True
 
 # 消息处理的超时时间，单位为秒
 process_message_timeout = 30
