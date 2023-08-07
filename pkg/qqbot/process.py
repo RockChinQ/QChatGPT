@@ -20,7 +20,6 @@ import pkg.utils.updater
 import pkg.utils.context
 import pkg.qqbot.message
 import pkg.qqbot.command
-import pkg.qqbot.ratelimit as ratelimit
 
 import pkg.plugin.host as plugin_host
 import pkg.plugin.models as plugin_models
@@ -65,9 +64,6 @@ def process_message(launcher_type: str, launcher_id: int, text_message: str, mes
 
     text_message = text_message.strip()
 
-    # 为强制消息延迟计时
-    start_time = time.time()
-
     # 处理消息
     try:
 
@@ -102,14 +98,6 @@ def process_message(launcher_type: str, launcher_id: int, text_message: str, mes
                                                               mgr, config, launcher_type, launcher_id, sender_id, is_admin(sender_id))
 
             else:  # 消息
-                # 限速丢弃检查
-                # print(ratelimit.__crt_minute_usage__[session_name])
-                if config.rate_limit_strategy == "drop":
-                    if ratelimit.is_reach_limit(session_name):
-                        logging.info("根据限速策略丢弃[{}]消息: {}".format(session_name, text_message))
-
-                        return MessageChain(["[bot]"+tips_custom.rate_limit_drop_tip]) if tips_custom.rate_limit_drop_tip != "" else []
-
                 before = time.time()
                 # 触发插件事件
                 args = {
@@ -133,12 +121,6 @@ def process_message(launcher_type: str, launcher_id: int, text_message: str, mes
                     reply = pkg.qqbot.message.process_normal_message(text_message,
                                                                      mgr, config, launcher_type, launcher_id, sender_id)
 
-                # 限速等待时间
-                if config.rate_limit_strategy == "wait":
-                    time.sleep(ratelimit.get_rest_wait_time(session_name, time.time() - before))
-                
-                ratelimit.add_usage(session_name)
-
             if reply is not None and len(reply) > 0 and (type(reply[0]) == str or type(reply[0]) == mirai.Plain):
                 if type(reply[0]) == mirai.Plain:
                     reply[0] = reply[0].text
@@ -154,24 +136,5 @@ def process_message(launcher_type: str, launcher_id: int, text_message: str, mes
             processing.remove(session_name)
     finally:
         pkg.openai.session.get_session(session_name).release_response_lock()
-
-    # 检查延迟时间
-    if config.force_delay_range[1] == 0:
-        delay_time = 0
-    else:
-        import random
-
-        # 从延迟范围中随机取一个值(浮点)
-        rdm = random.uniform(config.force_delay_range[0], config.force_delay_range[1])
-
-        spent = time.time() - start_time
-
-        # 如果花费时间小于延迟时间，则延迟
-        delay_time = rdm - spent if rdm - spent > 0 else 0
-
-    # 延迟
-    if delay_time > 0:
-        logging.info("[风控] 强制延迟{:.2f}秒(如需关闭，请到config.py修改force_delay_range字段)".format(delay_time))
-        time.sleep(delay_time)
 
     return MessageChain(reply)

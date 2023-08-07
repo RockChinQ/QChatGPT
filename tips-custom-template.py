@@ -5,10 +5,6 @@ import config
 # 设置为空字符串时，不发送提示信息
 alter_tip_message = '[bot]err:出错了，请稍后再试'
 
-# drop策略时，超过限速均值时，丢弃的对话的提示信息，仅当config.py中rate_limitation_strategy为"drop"时生效
-# 若设置为空字符串，则不发送提示信息
-rate_limit_drop_tip = "本分钟对话次数超过限速次数，此对话被丢弃"
-
 # 只允许同时处理一条消息时，新消息被丢弃时的提示信息
 # 当config.py中的wait_last_done为False时生效
 # 若设置为空字符串，则不发送提示信息
