@@ -55,10 +55,6 @@
     "at_sender": false,
     "process_message_timeout": 30,
     "show_prefix": false,
-    "force_delay_range": [
-        1.5,
-        3
-    ],
     "wait_last_done": true,
     "retry_times": 3,
     "hide_exce_info_to_user": false,
@@ -66,10 +62,6 @@
     "admin_pool_num": 4,
     "user_pool_num": 8,
     "session_expire_time": 1200,
-    "rate_limitation": {
-        "default": 60
-    },
-    "rate_limit_strategy": "drop",
     "upgrade_dependencies": true,
     "report_usage": true,
     "logging_level": 20
