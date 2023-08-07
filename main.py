@@ -370,10 +370,6 @@ def check_file():
     if not os.path.exists('banlist.py'):
         shutil.copy('res/templates/banlist-template.py', 'banlist.py')
 
-    # 检查是否有sensitive.json
-    if not os.path.exists("sensitive.json"):
-        shutil.copy("res/templates/sensitive-template.json", "sensitive.json")
-
     # 检查是否有scenario/default.json
     if not os.path.exists("scenario/default.json"):
         shutil.copy("scenario/default-template.json", "scenario/default.json")
