@@ -513,6 +513,3 @@ class Session:
 
     def delete_all_history(self) -> bool:
         return pkg.utils.context.get_database_manager().delete_all_history(self.name)
-
-    def draw_image(self, prompt: str):
-        return pkg.utils.context.get_openai_manager().request_image(prompt)

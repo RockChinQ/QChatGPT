@@ -40,18 +40,6 @@
             "random_rate": 0.0
         }
     },
-    "ignore_rules": {
-        "prefix": [
-            "/"
-        ],
-        "regexp": []
-    },
-    "income_msg_check": false,
-    "sensitive_word_filter": true,
-    "baidu_check": false,
-    "baidu_api_key": "",
-    "baidu_secret_key": "",
-    "inappropriate_message_tips": "[百度云]请珍惜机器人，当前返回内容不合规",
     "encourage_sponsor_at_start": true,
     "prompt_submit_length": 2048,
     "auto_reset": true,
@@ -62,33 +50,18 @@
         "frequency_penalty": 0.2,
         "presence_penalty": 1.0
     },
-    "image_api_params": {
-        "size": "256x256"
-    },
     "trace_function_calls": false,
     "quote_origin": true,
     "at_sender": false,
-    "include_image_description": true,
     "process_message_timeout": 30,
     "show_prefix": false,
-    "force_delay_range": [
-        1.5,
-        3
-    ],
-    "blob_message_threshold": 256,
-    "blob_message_strategy": "forward",
     "wait_last_done": true,
-    "font_path": "",
     "retry_times": 3,
     "hide_exce_info_to_user": false,
     "sys_pool_num": 8,
     "admin_pool_num": 4,
     "user_pool_num": 8,
     "session_expire_time": 1200,
-    "rate_limitation": {
-        "default": 60
-    },
-    "rate_limit_strategy": "drop",
     "upgrade_dependencies": true,
     "report_usage": true,
     "logging_level": 20

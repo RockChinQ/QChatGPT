@@ -13,7 +13,6 @@ import pkg.openai.manager
 from func_timeout import FunctionTimedOut
 import logging
 
-import pkg.qqbot.filter
 import pkg.qqbot.process as processor
 import pkg.utils.context
 
@@ -97,16 +96,6 @@ class QQBotManager:
     adapter: msadapter.MessageSourceAdapter = None
 
     bot_account_id: int = 0
-
-    reply_filter = None
-
-    enable_banlist = False
-
-    enable_private = True
-    enable_group = True
-
-    ban_person = []
-    ban_group = []
 
     def __init__(self, first_time_init=True):
         import config
@@ -237,32 +226,7 @@ class QQBotManager:
 
         self.unsubscribe_all = unsubscribe_all
 
-        # 加载禁用列表
-        if os.path.exists("banlist.py"):
-            import banlist
-            self.enable_banlist = banlist.enable
-            self.ban_person = banlist.person
-            self.ban_group = banlist.group
-            logging.info("加载禁用列表: person: {}, group: {}".format(self.ban_person, self.ban_group))
-
-            if hasattr(banlist, "enable_private"):
-                self.enable_private = banlist.enable_private
-            if hasattr(banlist, "enable_group"):
-                self.enable_group = banlist.enable_group
-
         config = pkg.utils.context.get_config()
-        if os.path.exists("sensitive.json") \
-                and config.sensitive_word_filter is not None \
-                and config.sensitive_word_filter:
-            with open("sensitive.json", "r", encoding="utf-8") as f:
-                sensitive_json = json.load(f)
-                self.reply_filter = pkg.qqbot.filter.ReplyFilter(
-                    sensitive_words=sensitive_json['words'],
-                    mask=sensitive_json['mask'] if 'mask' in sensitive_json else '*',
-                    mask_word=sensitive_json['mask_word'] if 'mask_word' in sensitive_json else ''
-                )
-        else:
-            self.reply_filter = pkg.qqbot.filter.ReplyFilter([])
 
     def send(self, event, msg, check_quote=True, check_at_sender=True):
         config = pkg.utils.context.get_config()
@@ -292,10 +256,8 @@ class QQBotManager:
     def on_person_message(self, event: MessageEvent):
         import config
         reply = ''
-
-        if not self.enable_private:
-            logging.debug("已在banlist.py中禁用所有私聊")
-        elif event.sender.id == self.bot_account_id:
+        
+        if event.sender.id == self.bot_account_id:
             pass
         else:
             if Image in event.message_chain:
@@ -368,10 +330,8 @@ class QQBotManager:
                 replys = [tips_custom.replys_message]
 
             return replys
-        
-        if not self.enable_group:
-            logging.debug("已在banlist.py中禁用所有群聊")
-        elif Image in event.message_chain:
+            
+        if Image in event.message_chain:
             pass
         else:
             if At(self.bot_account_id) in event.message_chain and response_at(event.group.id):

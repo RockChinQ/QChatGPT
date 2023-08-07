@@ -20,10 +20,6 @@ class OpenAIInteract:
 
     audit_mgr: pkg.audit.gatherer.DataGatherer = None
 
-    default_image_api_params = {
-        "size": "256x256",
-    }
-
     def __init__(self, api_key: str):
 
         self.key_mgr = pkg.openai.keymgr.KeysManager(api_key)
@@ -60,26 +56,3 @@ class OpenAIInteract:
                 )
 
             yield resp
-
-    def request_image(self, prompt) -> dict:
-        """请求图片接口回复
-
-        Parameters:
-            prompt (str): 提示语
-
-        Returns:
-            dict: 响应
-        """
-        config = pkg.utils.context.get_config()
-        params = config.image_api_params
-
-        response = openai.Image.create(
-            prompt=prompt,
-            n=1,
-            **params
-        )
-
-        self.audit_mgr.report_image_model_usage(params['size'])
-
-        return response
-

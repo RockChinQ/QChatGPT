@@ -156,40 +156,6 @@ response_rules = {
     },
 }
 
-
-# 消息忽略规则
-# 适用于私聊及群聊
-# 符合此规则的消息将不会被响应
-# 支持消息前缀匹配及正则表达式匹配
-# 此设置优先级高于response_rules
-# 用以过滤mirai等其他层级的指令
-# @see https://github.com/RockChinQ/QChatGPT/issues/165
-ignore_rules = {
-    "prefix": ["/"],
-    "regexp": []
-}
-
-# 是否检查收到的消息中是否包含敏感词
-# 若收到的消息无法通过下方指定的敏感词检查策略，则发送提示信息
-income_msg_check = False
-
-# 敏感词过滤开关，以同样数量的*代替敏感词回复
-# 请在sensitive.json中添加敏感词
-sensitive_word_filter = True
-
-# 是否启用百度云内容安全审核
-# 注册方式查看 https://cloud.baidu.com/doc/ANTIPORN/s/Wkhu9d5iy
-baidu_check = False
-
-# 百度云API_KEY 24位英文数字字符串
-baidu_api_key = ""
-
-# 百度云SECRET_KEY 32位的英文数字字符串
-baidu_secret_key = ""
-
-# 不合规消息自定义返回
-inappropriate_message_tips = "[百度云]请珍惜机器人，当前返回内容不合规"
-
 # 启动时是否发送赞赏码
 # 仅当使用量已经超过2048字时发送
 encourage_sponsor_at_start = True
@@ -233,12 +199,6 @@ completion_api_params = {
     "presence_penalty": 1.0,
 }
 
-# OpenAI的Image API的参数
-# 具体请查看OpenAI的文档: https://beta.openai.com/docs/api-reference/images/create
-image_api_params = {
-    "size": "256x256",  # 图片尺寸，支持256x256, 512x512, 1024x1024
-}
-
 # 跟踪函数调用
 # 为True时，在每次GPT进行Function Calling时都会输出发送一条回复给用户
 # 同时，一次提问内所有的Function Calling和普通回复消息都会单独发送给用户
@@ -250,43 +210,17 @@ quote_origin = True
 # 群内回复消息时是否at发送者
 at_sender = False
 
-# 回复绘图时是否包含图片描述
-include_image_description = True
-
 # 消息处理的超时时间，单位为秒
 process_message_timeout = 30
 
 # 回复消息时是否显示[GPT]前缀
 show_prefix = False
 
-# 回复前的强制延迟时间，降低机器人被腾讯风控概率
-# *此机制对命令和消息、私聊及群聊均生效
-# 每次处理时从以下的范围取一个随机秒数，
-# 当此次消息处理时间低于此秒数时，将会强制延迟至此秒数
-# 例如：[1.5, 3]，则每次处理时会随机取一个1.5-3秒的随机数，若处理时间低于此随机数，则强制延迟至此随机秒数
-# 若您不需要此功能，请将force_delay_range设置为[0, 0]
-force_delay_range = [1.5, 3]
-
-# 应用长消息处理策略的阈值
-# 当回复消息长度超过此值时，将使用长消息处理策略
-blob_message_threshold = 256
-
-# 长消息处理策略
-# - "image": 将长消息转换为图片发送
-# - "forward": 将长消息转换为转发消息组件发送
-blob_message_strategy = "forward"
-
 # 允许等待
 # 同一会话内，是否等待上一条消息处理完成后再处理下一条消息
 # 若设置为False，若上一条未处理完时收到了新消息，将会丢弃新消息
 # 丢弃消息时的提示信息可以在tips.py中修改
 wait_last_done = True
-
-# 文字转图片时使用的字体文件路径
-# 当策略为"image"时生效
-#   若在Windows系统下，程序会自动使用Windows自带的微软雅黑字体
-#   若未填写或不存在且不是Windows，将禁用文字转图片功能，改为使用转发消息组件
-font_path = ""
 
 # 消息处理超时重试次数
 retry_times = 3
@@ -312,40 +246,6 @@ user_pool_num = 8
 # 每个会话的过期时间，单位为秒
 # 默认值20分钟
 session_expire_time = 1200
-
-# 会话限速
-# 单会话内每分钟可进行的对话次数
-# 若不需要限速，可以设置为一个很大的值
-# 默认值60次，基本上不会触发限速
-#
-# 若要设置针对某特定群的限速，请使用如下格式：
-# {
-#   "group_<群号>": 60,
-#   "default": 60,
-# }
-# 若要设置针对某特定用户私聊的限速，请使用如下格式：
-# {
-#   "person_<用户QQ>": 60,
-#   "default": 60,
-# }
-# 同时设置多个群和私聊的限速，示例：
-# {
-#   "group_12345678": 60,
-#   "group_87654321": 60,
-#   "person_234567890": 60,
-#   "person_345678901": 60,
-#   "default": 60,
-# }
-#
-# 注意: 未指定的都使用default的限速值，default不可删除
-rate_limitation = {
-    "default": 60,
-}
-
-# 会话限速策略
-# - "wait": 每次对话获取到回复时，等待一定时间再发送回复，保证其不会超过限速均值
-# - "drop": 此分钟内，若对话次数超过限速次数，则丢弃之后的对话，每自然分钟重置
-rate_limit_strategy = "drop"
 
 # 是否在启动时进行依赖库更新
 upgrade_dependencies = True
