@@ -40,12 +40,6 @@
             "random_rate": 0.0
         }
     },
-    "ignore_rules": {
-        "prefix": [
-            "/"
-        ],
-        "regexp": []
-    },
     "encourage_sponsor_at_start": true,
     "prompt_submit_length": 2048,
     "auto_reset": true,
