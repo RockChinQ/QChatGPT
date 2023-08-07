@@ -156,19 +156,6 @@ response_rules = {
     },
 }
 
-
-# 消息忽略规则
-# 适用于私聊及群聊
-# 符合此规则的消息将不会被响应
-# 支持消息前缀匹配及正则表达式匹配
-# 此设置优先级高于response_rules
-# 用以过滤mirai等其他层级的指令
-# @see https://github.com/RockChinQ/QChatGPT/issues/165
-ignore_rules = {
-    "prefix": ["/"],
-    "regexp": []
-}
-
 # 启动时是否发送赞赏码
 # 仅当使用量已经超过2048字时发送
 encourage_sponsor_at_start = True
