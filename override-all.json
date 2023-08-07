@@ -59,10 +59,7 @@
         1.5,
         3
     ],
-    "blob_message_threshold": 256,
-    "blob_message_strategy": "forward",
     "wait_last_done": true,
-    "font_path": "",
     "retry_times": 3,
     "hide_exce_info_to_user": false,
     "sys_pool_num": 8,
