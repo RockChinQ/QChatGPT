@@ -72,14 +72,10 @@ def process_message(launcher_type: str, launcher_id: int, text_message: str, mes
             return reply
 
     import config
-    if config.income_msg_check:
-        if mgr.reply_filter.is_illegal(text_message):
-            return MessageChain(Plain("[bot] 消息中存在不合适的内容, 请更换措辞"))
 
     pkg.openai.session.get_session(session_name).acquire_response_lock()
 
     text_message = text_message.strip()
-
 
     # 为强制消息延迟计时
     start_time = time.time()
@@ -162,7 +158,7 @@ def process_message(launcher_type: str, launcher_id: int, text_message: str, mes
                     "回复[{}]文字消息:{}".format(session_name,
                                                  reply[0][:min(100, len(reply[0]))] + (
                                                      "..." if len(reply[0]) > 100 else "")))
-                reply = [mgr.reply_filter.process(reply[0])]
+                reply = [reply[0]]
                 reply = blob.check_text(reply[0])
             else:
                 logging.info("回复[{}]消息".format(session_name))

@@ -13,7 +13,6 @@ import pkg.openai.manager
 from func_timeout import FunctionTimedOut
 import logging
 
-import pkg.qqbot.filter
 import pkg.qqbot.process as processor
 import pkg.utils.context
 
@@ -97,8 +96,6 @@ class QQBotManager:
     adapter: msadapter.MessageSourceAdapter = None
 
     bot_account_id: int = 0
-
-    reply_filter = None
 
     enable_banlist = False
 
@@ -251,18 +248,6 @@ class QQBotManager:
                 self.enable_group = banlist.enable_group
 
         config = pkg.utils.context.get_config()
-        if os.path.exists("sensitive.json") \
-                and config.sensitive_word_filter is not None \
-                and config.sensitive_word_filter:
-            with open("sensitive.json", "r", encoding="utf-8") as f:
-                sensitive_json = json.load(f)
-                self.reply_filter = pkg.qqbot.filter.ReplyFilter(
-                    sensitive_words=sensitive_json['words'],
-                    mask=sensitive_json['mask'] if 'mask' in sensitive_json else '*',
-                    mask_word=sensitive_json['mask_word'] if 'mask_word' in sensitive_json else ''
-                )
-        else:
-            self.reply_filter = pkg.qqbot.filter.ReplyFilter([])
 
     def send(self, event, msg, check_quote=True, check_at_sender=True):
         config = pkg.utils.context.get_config()

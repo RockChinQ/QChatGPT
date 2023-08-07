@@ -169,27 +169,6 @@ ignore_rules = {
     "regexp": []
 }
 
-# 是否检查收到的消息中是否包含敏感词
-# 若收到的消息无法通过下方指定的敏感词检查策略，则发送提示信息
-income_msg_check = False
-
-# 敏感词过滤开关，以同样数量的*代替敏感词回复
-# 请在sensitive.json中添加敏感词
-sensitive_word_filter = True
-
-# 是否启用百度云内容安全审核
-# 注册方式查看 https://cloud.baidu.com/doc/ANTIPORN/s/Wkhu9d5iy
-baidu_check = False
-
-# 百度云API_KEY 24位英文数字字符串
-baidu_api_key = ""
-
-# 百度云SECRET_KEY 32位的英文数字字符串
-baidu_secret_key = ""
-
-# 不合规消息自定义返回
-inappropriate_message_tips = "[百度云]请珍惜机器人，当前返回内容不合规"
-
 # 启动时是否发送赞赏码
 # 仅当使用量已经超过2048字时发送
 encourage_sponsor_at_start = True
