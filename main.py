@@ -366,9 +366,6 @@ def stop():
 
 
 def check_file():
-    # 检查是否有banlist.py,如果没有就把banlist-template.py复制一份
-    if not os.path.exists('banlist.py'):
-        shutil.copy('res/templates/banlist-template.py', 'banlist.py')
 
     # 检查是否有scenario/default.json
     if not os.path.exists("scenario/default.json"):
