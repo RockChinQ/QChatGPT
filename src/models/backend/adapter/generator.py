@@ -6,14 +6,15 @@
 import typing
 
 from ...entities import query as querymodule
+from ... import factory
 
 
-class ContentGeneratorFactory:
+class ContentGeneratorFactory(factory.FactoryBase):
     """内容生成器工厂
     """
     
     @classmethod
-    def create_generator(cls, config: dict) -> 'ContentGenerator':
+    def create(cls, config: dict) -> 'ContentGenerator':
         """创建内容生成器
         """
         raise NotImplementedError

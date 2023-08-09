@@ -5,6 +5,8 @@
 实现新的Session管理器时，请注册SessionManager的工厂类。
 """
 
+from .. import factory
+
 
 class Session:
     
@@ -15,12 +17,12 @@ class Session:
     """此session现存的消息列表"""
 
 
-class SessionManagerFactory:
+class SessionManagerFactory(factory.FactoryBase):
     """session管理器工厂
     """
     
     @classmethod
-    def create_manager(cls, config: dict) -> 'SessionManager':
+    def create(cls, config: dict) -> 'SessionManager':
         """创建session管理器
         
         Args:

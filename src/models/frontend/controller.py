@@ -10,9 +10,10 @@ from .sender import wrapper
 from ..middleware import session
 from ..middleware import prompt
 from ..middleware import processor
+from .. import factory
 
 
-class FrontControllerFactory:
+class FrontControllerFactory(factory.FactoryBase):
     """前端控制器工厂类
     """
     

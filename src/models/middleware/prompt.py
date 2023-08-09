@@ -5,13 +5,15 @@
 实现新的PromptManager时，请注册此PromptManager的工厂类
 """
 
+from .. import factory
 
-class PromptManagerFactory:
+
+class PromptManagerFactory(factory.FactoryBase):
     """prompt管理器工厂
     """
     
     @classmethod
-    def create_manager(cls, config: dict) -> 'PromptManager':
+    def create(cls, config: dict) -> 'PromptManager':
         """创建prompt管理器
         
         Args:

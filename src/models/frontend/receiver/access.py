@@ -7,13 +7,14 @@
 """
 
 from ...entities import query as querymodule
+from ... import factory
 
 
-class AccessControllerFactory:
+class AccessControllerFactory(factory.FactoryBase):
     """访问控制器工厂
     """
     @classmethod
-    def create_controller(cls, config: dict) -> 'AccessController':
+    def create(cls, config: dict) -> 'AccessController':
         """创建访问控制器
         
         Args:

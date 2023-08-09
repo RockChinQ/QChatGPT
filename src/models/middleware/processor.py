@@ -6,14 +6,15 @@
 """
 
 from ..entities import query as querymodule
+from .. import factory
 
 
-class MessagePreProcessorFactory:
+class MessagePreProcessorFactory(factory.FactoryBase):
     """消息预处理器工厂
     """
     
     @classmethod
-    def create_processor(cls, config: dict) -> 'MessagePreProcessor':
+    def create(cls, config: dict) -> 'MessagePreProcessor':
         """创建消息预处理器
         """
         raise NotImplementedError

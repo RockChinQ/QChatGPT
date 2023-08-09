@@ -8,12 +8,13 @@
 import typing
 
 from ...entities import query as querymodule
+from ... import factory
 
 
-class MessageWrapperFactory:
+class MessageWrapperFactory(factory.FactoryBase):
     
     @classmethod
-    def create_wrapper(cls, config: dict) -> 'MessageWrapper':
+    def create(cls, config: dict) -> 'MessageWrapper':
         """创建包装器
         
         Args:

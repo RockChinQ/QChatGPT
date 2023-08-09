@@ -1,6 +1,7 @@
+from .. import factory
 
 
-class LoadBalancerFactory:
+class LoadBalancerFactory(factory.FactoryBase):
     """负载均衡器工厂
     """
     

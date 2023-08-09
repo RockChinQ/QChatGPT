@@ -7,12 +7,14 @@ import typing
 
 import mirai
 
+from ... import factory
 
-class MessageAdapterFactory:
+
+class MessageAdapterFactory(factory.FactoryBase):
     """适配器工厂类"""
     
     @classmethod
-    def create_adapter(cls, config: dict) -> 'MessageInterface':
+    def create(cls, config: dict) -> 'MessageInterface':
         """创建适配器
         
         Args:
