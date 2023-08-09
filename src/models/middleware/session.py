@@ -6,6 +6,7 @@
 """
 
 from .. import factory
+from ..system import config as cfg
 
 
 class Session:
@@ -22,7 +23,7 @@ class SessionManagerFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: dict) -> 'SessionManager':
+    def create(cls, config: cfg.ConfigManager) -> 'SessionManager':
         """创建session管理器
         
         Args:
@@ -44,7 +45,7 @@ class SessionManager:
     launcher的标识符 : Session
     """
     
-    def __init__(self, config: dict):
+    def __init__(self, config: cfg.ConfigManager):
         pass
     
     def get_session(self, launcher: str) -> Session:

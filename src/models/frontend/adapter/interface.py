@@ -8,13 +8,14 @@ import typing
 import mirai
 
 from ... import factory
+from ...system import config as cfg
 
 
 class MessageAdapterFactory(factory.FactoryBase):
     """适配器工厂类"""
     
     @classmethod
-    def create(cls, config: dict) -> 'MessageInterface':
+    def create(cls, config: cfg.ConfigManager) -> 'MessageInterface':
         """创建适配器
         
         Args:
@@ -29,7 +30,7 @@ class MessageAdapterFactory(factory.FactoryBase):
 class MessageInterface:
     """IM平台适配器接口"""
     
-    def __init__(self, config: dict):
+    def __init__(self, config: cfg.ConfigManager):
         pass
     
     async def send_message(

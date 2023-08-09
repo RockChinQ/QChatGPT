@@ -1,4 +1,5 @@
 from .. import factory
+from ..system import config as cfg
 
 
 class LoadBalancerFactory(factory.FactoryBase):
@@ -6,7 +7,7 @@ class LoadBalancerFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: dict) -> 'LoadBalancer':
+    def create(cls, config: cfg.ConfigManager) -> 'LoadBalancer':
         """创建负载均衡器
         """
         raise NotImplementedError
@@ -16,7 +17,7 @@ class LoadBalancer:
     """后端账号负载均衡器
     """
     
-    def __init__(self, config: dict):
+    def __init__(self, config: cfg.ConfigManager):
         """初始化负载均衡器
         """
         pass

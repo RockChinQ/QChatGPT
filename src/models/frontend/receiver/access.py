@@ -8,13 +8,14 @@
 
 from ...entities import query as querymodule
 from ... import factory
+from ...system import config as cfg
 
 
 class AccessControllerFactory(factory.FactoryBase):
     """访问控制器工厂
     """
     @classmethod
-    def create(cls, config: dict) -> 'AccessController':
+    def create(cls, config: cfg.ConfigManager) -> 'AccessController':
         """创建访问控制器
         
         Args:
@@ -30,7 +31,7 @@ class AccessController:
     """访问控制器
     """
     
-    def __init__(self, config: dict):
+    def __init__(self, config: cfg.ConfigManager):
         pass
     
     def judge_access(self, query: querymodule.QueryContext) -> bool:

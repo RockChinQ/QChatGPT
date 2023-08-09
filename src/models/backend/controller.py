@@ -5,6 +5,7 @@ from .adapter import generator
 from . import balancer
 from . import processor
 from ..entities import query as querymodule
+from ..system import config as cfg
 
 
 class BackendControllerFactory:
@@ -12,7 +13,7 @@ class BackendControllerFactory:
     """
     
     @classmethod
-    def create(cls, config: dict) -> 'BackendController':
+    def create(cls, config: cfg.ConfigManager) -> 'BackendController':
         """创建后端控制器
         """
         raise NotImplementedError

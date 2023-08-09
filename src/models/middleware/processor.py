@@ -7,6 +7,7 @@
 
 from ..entities import query as querymodule
 from .. import factory
+from ..system import config as cfg
 
 
 class MessagePreProcessorFactory(factory.FactoryBase):
@@ -14,7 +15,7 @@ class MessagePreProcessorFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: dict) -> 'MessagePreProcessor':
+    def create(cls, config: cfg.ConfigManager) -> 'MessagePreProcessor':
         """创建消息预处理器
         """
         raise NotImplementedError
@@ -24,7 +25,7 @@ class MessagePreProcessor:
     """对接收到的消息和prompt进行预处理
     """
     
-    def __init__(self, config: dict):
+    def __init__(self, config: cfg.ConfigManager):
         pass
     
     def process(self, query: querymodule.QueryContext):

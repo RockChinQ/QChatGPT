@@ -9,12 +9,13 @@ import typing
 
 from ...entities import query as querymodule
 from ... import factory
+from ...system import config as cfg
 
 
 class MessageWrapperFactory(factory.FactoryBase):
     
     @classmethod
-    def create(cls, config: dict) -> 'MessageWrapper':
+    def create(cls, config: cfg.ConfigManager) -> 'MessageWrapper':
         """创建包装器
         
         Args:
@@ -30,7 +31,7 @@ class MessageWrapper:
     """将后端响应进行处理
     """
     
-    def __init__(self, config: dict):
+    def __init__(self, config: cfg.ConfigManager):
         pass
     
     def wrap(self, query: querymodule.QueryContext):

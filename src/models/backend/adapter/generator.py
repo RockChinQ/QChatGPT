@@ -7,6 +7,7 @@ import typing
 
 from ...entities import query as querymodule
 from ... import factory
+from ...system import config as cfg
 
 
 class ContentGeneratorFactory(factory.FactoryBase):
@@ -14,7 +15,7 @@ class ContentGeneratorFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: dict) -> 'ContentGenerator':
+    def create(cls, config: cfg.ConfigManager) -> 'ContentGenerator':
         """创建内容生成器
         """
         raise NotImplementedError
@@ -24,7 +25,7 @@ class ContentGenerator:
     """内容生成器
     """
 
-    def __init__(self, config: dict):
+    def __init__(self, config: cfg.ConfigManager):
         """初始化内容生成器
         """
         pass

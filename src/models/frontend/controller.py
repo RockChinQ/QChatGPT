@@ -11,6 +11,7 @@ from ..middleware import session
 from ..middleware import prompt
 from ..middleware import processor
 from .. import factory
+from ..system import config as cfg
 
 
 class FrontControllerFactory(factory.FactoryBase):
@@ -18,7 +19,7 @@ class FrontControllerFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: dict) -> 'FrontController':
+    def create(cls, config: cfg.ConfigManager) -> 'FrontController':
         """创建前端控制器
         
         Args:
@@ -65,7 +66,7 @@ class FrontController:
         session_manager: session.SessionManager,
         prompt_manager: prompt.PromptManager,
         preprocessors: list[processor.MessagePreProcessor],
-        config: dict
+        config: cfg.ConfigManager
     ):
         """初始化控制器
         

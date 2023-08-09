@@ -6,6 +6,7 @@
 """
 
 from .. import factory
+from ..system import config as cfg
 
 
 class PromptManagerFactory(factory.FactoryBase):
@@ -13,7 +14,7 @@ class PromptManagerFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: dict) -> 'PromptManager':
+    def create(cls, config: cfg.ConfigManager) -> 'PromptManager':
         """创建prompt管理器
         
         Args:
@@ -29,7 +30,7 @@ class PromptManager:
     """prompt管理器
     """
     
-    def __init__(self, config: dict):
+    def __init__(self, config: cfg.ConfigManager):
         """初始化
         """
         pass

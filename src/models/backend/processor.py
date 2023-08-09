@@ -7,12 +7,13 @@ import typing
 
 from ..entities import query as querymodule
 from .. import factory
+from ..system import config as cfg
 
 class ContentProcessorFactory(factory.FactoryBase):
     """内容处理器工厂
     """
     @classmethod
-    def create(cls, config: dict) -> 'ContentProcessor':
+    def create(cls, config: cfg.ConfigManager) -> 'ContentProcessor':
         """创建内容处理器
         """
         raise NotImplementedError
@@ -22,7 +23,7 @@ class ContentProcessor:
     """内容处理器
     """
     
-    def __init__(self) -> None:
+    def __init__(self, config: cfg.ConfigManager) -> None:
         pass
     
     async def process(self, query: querymodule.QueryContext, query_generator: typing.Generator[querymodule.Response, None, None]) -> typing.Generator[querymodule.Response, None, None]:
