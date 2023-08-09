@@ -30,6 +30,23 @@ class ResponseType(enum.Enum):
     """
 
 
+class ResponseFinishReason(enum.Enum):
+    FUNCTION_CALL = "function_call"
+    """由于得到函数调用请求而返回"""
+    
+    FUNCTION_RETURN = "function_return"
+    """由于得到函数调用返回值而返回"""
+    
+    STOP = "stop"
+    """普通内容响应结束"""
+    
+    LENGTH = "length"
+    """普通内容响应达到长度上限而返回"""
+    
+    NULL = "null"
+    """处于流式响应时，每一次响应的finish_reason都为null"""
+
+
 class Response:
     
     role: str
@@ -40,6 +57,10 @@ class Response:
     """响应的类型"""
     
     content: typing.Union[str, dict[str, typing.Any], mirai.MessageChain]
+    """响应内容(stream时为接口当前请求接收到的完整内容)"""
+    
+    finish_reason: ResponseFinishReason
+    """此响应返回原因"""
 
 
 class QueryContext:

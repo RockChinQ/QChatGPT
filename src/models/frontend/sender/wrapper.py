@@ -36,6 +36,7 @@ class MessageWrapper:
         """对后端响应进行处理
         
         处理query中的response的内容，若转换结束后，response的type为component，则跳过后续的包装器。
+        这里传入的query里的响应都是此次用户请求中单次接口请求的完整响应内容。
         
         Args:
             query (querymodule.QueryContext): 请求上下文

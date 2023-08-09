@@ -12,19 +12,49 @@ from ..middleware import prompt
 from ..middleware import processor
 
 
+class FrontControllerFactory:
+    """前端控制器工厂类
+    """
+    
+    @classmethod
+    def create(cls, config: dict) -> 'FrontController':
+        """创建前端控制器
+        
+        Args:
+            config (dict): 配置文件
+        
+        Returns:
+            FrontController: 前端控制器
+        """
+        raise NotImplementedError
+
+
 class FrontController:
     
     adapter: interface.MessageInterface
+    """IM消息平台适配器
+    """
     
     access_controllers: list[access.AccessController]
+    """访问控制器
     
-    message_wrappers: list[wrapper.MessageWrapper]
+    调用时，当所有的访问控制器都返回True时，才允许进入之后的步骤。
+    """
     
     session_manager: session.SessionManager
+    """Session管理器"""
     
     prompt_manager: prompt.PromptManager
+    """prompt管理器"""
     
     preprocessors: list[processor.MessagePreProcessor]
+    """消息预处理器"""
+    
+    message_wrappers: list[wrapper.MessageWrapper]
+    """响应消息包装器
+    
+    调用时，将会按照列表顺序，对响应消息进行包装。
+    """
     
     def __init__(
         self,
@@ -40,8 +70,9 @@ class FrontController:
         
         需要在此注册事件监听器。
         """
+        raise NotImplementedError
     
-    def run(self):
+    async def run(self):
         """运行控制器
         
         通常此方法将直接启动adapter。
