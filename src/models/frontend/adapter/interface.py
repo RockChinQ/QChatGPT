@@ -33,6 +33,16 @@ class MessageInterface:
     def __init__(self, config: cfg.ConfigManager):
         pass
     
+    def get_bot_id(self) -> str:
+        """获取机器人ID
+        
+        可能是QQ号这种。
+        
+        Returns:
+            str: 机器人ID。
+        """
+        raise NotImplementedError
+    
     async def send_message(
         self,
         target: str,

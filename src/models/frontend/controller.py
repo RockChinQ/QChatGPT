@@ -14,12 +14,12 @@ from .. import factory
 from ..system import config as cfg
 
 
-class FrontControllerFactory(factory.FactoryBase):
+class FrontendControllerFactory(factory.FactoryBase):
     """前端控制器工厂类
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'FrontController':
+    def create(cls, config: cfg.ConfigManager) -> 'FrontendController':
         """创建前端控制器
         
         Args:
@@ -31,7 +31,7 @@ class FrontControllerFactory(factory.FactoryBase):
         raise NotImplementedError
 
 
-class FrontController:
+class FrontendController:
     
     adapter: interface.MessageInterface
     """IM消息平台适配器

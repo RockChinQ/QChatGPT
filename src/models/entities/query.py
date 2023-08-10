@@ -79,7 +79,7 @@ class QueryContext:
     在收到消息后存储
     """
     
-    message: mirai.MessageChain
+    message_chain: mirai.MessageChain
     """请求的消息内容
     
     在收到消息后存储

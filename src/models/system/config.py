@@ -59,7 +59,7 @@ class ConfigManager:
     def __init__(self, namespace: str):
         pass
     
-    def register_config(self, config_entry: ConfigEntry):
+    def exists(self, config_entry: ConfigEntry[T]) -> bool:
         raise NotImplementedError
 
     def get(self, config_entry: ConfigEntry[T]) -> T:

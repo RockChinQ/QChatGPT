@@ -49,7 +49,7 @@ def get_runtime_log_file() -> str:
     if not os.path.exists("logs"):
         os.mkdir("logs")
 
-    return "logs/qchatgpt-%s.log" % time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
+    return "logs/qcg-%s.log" % time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     
 
 def setup_logging():
@@ -81,3 +81,12 @@ def setup_logging():
     
     add_handler(console_handler)
     add_handler(file_handler)
+
+
+def set_level(level: int):
+    """设置日志级别
+
+    Args:
+        level (int): 日志级别
+    """
+    logging.getLogger().setLevel(level)
