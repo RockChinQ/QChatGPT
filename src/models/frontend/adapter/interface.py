@@ -9,6 +9,7 @@ import mirai
 
 from ... import factory
 from ...system import config as cfg
+from ...entities import query as querymodule
 
 
 class MessageAdapterFactory(factory.FactoryBase):
@@ -84,8 +85,11 @@ class MessageInterface:
         """
         raise NotImplementedError
     
-    async def run(self):
-        """运行适配器"""
+    async def run(self) -> typing.Generator[querymodule.QueryContext, None, None]:
+        """运行适配器，这是一个生成器
+        
+        此函数阻塞运行，并不断生成事件，返回query.QueryContext
+        """
         raise NotImplementedError
     
     def support_reload(self) -> bool:

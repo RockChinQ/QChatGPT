@@ -11,7 +11,7 @@ from src.models.system import config as cfg
 from ....models.frontend.adapter import interface
 from ....models.system import config as cfg
 from ....runtime import module
-from ....models.entities import forward
+from ....models.entities import forward, query as querymodule
 
 
 gocqhttp_params = cfg.ConfigEntry(
@@ -302,7 +302,7 @@ class NakuruAdapter(interface.MessageInterface):
 
         self.bot.event[nakuru_event_name] = new_event_list
         
-    async def run(self):
+    async def run(self) -> typing.Generator[querymodule.QueryContext, None, None]:
         return await self.bot.run()
     
     def support_reload(self) -> bool:

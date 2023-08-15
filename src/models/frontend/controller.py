@@ -2,6 +2,7 @@
 
 实现前端从接收消息，处理消息，获取响应，处理回复的所有流程控制
 """
+import typing
 
 from .adapter import interface
 from .receiver import access
@@ -12,6 +13,7 @@ from ..middleware import prompt
 from ..middleware import processor
 from .. import factory
 from ..system import config as cfg
+from ..entities import query as querymodule
 
 
 class FrontendControllerFactory(factory.FactoryBase):
@@ -74,8 +76,8 @@ class FrontendController:
         """
         raise NotImplementedError
     
-    async def run(self):
-        """运行控制器
+    async def run(self) -> typing.Generator[querymodule.QueryContext, None, None]:
+        """运行控制器, 不断生成QueryContext
         
         通常此方法将直接启动adapter。
         """

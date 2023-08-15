@@ -5,6 +5,7 @@ import mirai
 from ....models.frontend.adapter import interface
 from ....models.system import config as cfg
 from ....runtime import module
+from ....models.entities import query as querymodule
 
 
 mirai_api_http_params = cfg.ConfigEntry(
@@ -120,7 +121,7 @@ class YiriMiraiAdapter(interface.MessageInterface):
         
         bus.unsubscribe(event_type, callback)
 
-    async def run(self):
+    async def run(self) -> typing.Generator[querymodule.QueryContext, None, None]:
         """运行适配器
         """
         return await mirai.MiraiRunner(self.bot)._run()
