@@ -62,6 +62,12 @@ class Response:
     finish_reason: ResponseFinishReason
     """此响应返回原因"""
 
+    def set_component(self, component: mirai.MessageChain):
+        """设置响应内容为组件
+        """
+        self.resp_type = ResponseType.COMPONENT
+        self.content = component
+
 
 class QueryContext:
     """一次请求的上下文
