@@ -34,7 +34,7 @@ mirai_api_http_params = cfg.ConfigEntry(
 class YiriMiraiAdapterFactory(interface.MessageAdapterFactory):
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'YiriMiraiAdapter':
+    async def create(cls, config: cfg.ConfigManager) -> 'YiriMiraiAdapter':
         return YiriMiraiAdapter(config)
 
 

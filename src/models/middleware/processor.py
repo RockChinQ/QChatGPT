@@ -15,7 +15,7 @@ class MessagePreProcessorFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'MessagePreProcessor':
+    async def create(cls, config: cfg.ConfigManager) -> 'MessagePreProcessor':
         """创建消息预处理器
         """
         raise NotImplementedError

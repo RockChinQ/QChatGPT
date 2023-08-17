@@ -15,7 +15,7 @@ class ContentGeneratorFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'ContentGenerator':
+    async def create(cls, config: cfg.ConfigManager) -> 'ContentGenerator':
         """创建内容生成器
         """
         raise NotImplementedError

@@ -21,7 +21,7 @@ class FrontendControllerFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'FrontendController':
+    async def create(cls, config: cfg.ConfigManager) -> 'FrontendController':
         """创建前端控制器
         
         Args:

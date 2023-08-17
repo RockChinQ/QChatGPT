@@ -13,7 +13,7 @@ class ContentProcessorFactory(factory.FactoryBase):
     """内容处理器工厂
     """
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'ContentProcessor':
+    async def create(cls, config: cfg.ConfigManager) -> 'ContentProcessor':
         """创建内容处理器
         """
         raise NotImplementedError

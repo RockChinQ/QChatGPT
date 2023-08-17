@@ -13,7 +13,7 @@ class BackendControllerFactory:
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'BackendController':
+    async def create(cls, config: cfg.ConfigManager) -> 'BackendController':
         """创建后端控制器
         """
         raise NotImplementedError

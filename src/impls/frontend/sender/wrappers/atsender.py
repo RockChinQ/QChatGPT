@@ -23,7 +23,7 @@ class AtSenderMessageWrapperFactory(wrapper.MessageWrapperFactory):
     """at发送者的消息包装器工厂"""
 
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'AtSenderMessageWrapper':
+    async def create(cls, config: cfg.ConfigManager) -> 'AtSenderMessageWrapper':
         return AtSenderMessageWrapper(config)
     
 

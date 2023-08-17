@@ -19,7 +19,7 @@ class PrefixMessageWrapperFactory(wrapper.MessageWrapperFactory):
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'PrefixMessageWrapper':
+    async def create(cls, config: cfg.ConfigManager) -> 'PrefixMessageWrapper':
         return PrefixMessageWrapper(config)
     
 

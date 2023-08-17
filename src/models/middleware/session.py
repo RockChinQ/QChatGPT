@@ -23,7 +23,7 @@ class SessionManagerFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'SessionManager':
+    async def create(cls, config: cfg.ConfigManager) -> 'SessionManager':
         """创建session管理器
         
         Args:
@@ -56,5 +56,22 @@ class SessionManager:
         
         Returns:
             Session: session
+        """
+        raise NotImplementedError
+    
+    def append_message(self, session: Session, message: dict[str, str]):
+        """追加消息
+        
+        Args:
+            session (Session): session
+            message (dict): 消息
+        """
+        raise NotImplementedError
+    
+    def reset_session(self, session: Session):
+        """重置session
+        
+        Args:
+            session (Session): session
         """
         raise NotImplementedError

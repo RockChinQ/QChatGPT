@@ -7,7 +7,7 @@ class LoadBalancerFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'LoadBalancer':
+    async def create(cls, config: cfg.ConfigManager) -> 'LoadBalancer':
         """创建负载均衡器
         """
         raise NotImplementedError

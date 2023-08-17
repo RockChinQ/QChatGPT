@@ -16,7 +16,7 @@ class MessageAdapterFactory(factory.FactoryBase):
     """适配器工厂类"""
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'MessageInterface':
+    async def create(cls, config: cfg.ConfigManager) -> 'MessageInterface':
         """创建适配器
         
         Args:

@@ -14,7 +14,7 @@ class PromptManagerFactory(factory.FactoryBase):
     """
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'PromptManager':
+    async def create(cls, config: cfg.ConfigManager) -> 'PromptManager':
         """创建prompt管理器
         
         Args:

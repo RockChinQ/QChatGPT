@@ -71,7 +71,7 @@ def select_rule(rules: dict, group_id: str) -> dict:
 class DefaultAccessControllerFactory(access.AccessControllerFactory):
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'DefaultAccessController':
+    async def create(cls, config: cfg.ConfigManager) -> 'DefaultAccessController':
         """创建访问控制器
         """
         return DefaultAccessController(config)

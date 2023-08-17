@@ -15,7 +15,7 @@ from ...system import config as cfg
 class MessageWrapperFactory(factory.FactoryBase):
     
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'MessageWrapper':
+    async def create(cls, config: cfg.ConfigManager) -> 'MessageWrapper':
         """创建包装器
         
         Args:

@@ -179,7 +179,7 @@ class NakuruProjectEventConverter:
 class NakuruAdapterFactory(interface.MessageAdapterFactory):
 
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'NakuruAdapter':
+    async def create(cls, config: cfg.ConfigManager) -> 'NakuruAdapter':
         return NakuruAdapter(config)
     
 

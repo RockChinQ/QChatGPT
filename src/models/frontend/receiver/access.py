@@ -15,7 +15,7 @@ class AccessControllerFactory(factory.FactoryBase):
     """访问控制器工厂
     """
     @classmethod
-    def create(cls, config: cfg.ConfigManager) -> 'AccessController':
+    async def create(cls, config: cfg.ConfigManager) -> 'AccessController':
         """创建访问控制器
         
         Args:
