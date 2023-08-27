@@ -34,9 +34,17 @@ class PromptManager:
         """初始化
         """
         pass
+
+    def list_prompt(self) -> list[str]:
+        """列出所有prompt的key
+        
+        Returns:
+            list[str]: prompt的key列表
+        """
+        raise NotImplementedError
     
     def get_prompt(self, prompt_key: str=None) -> tuple[str, list[dict[str, str]]]:
-        """获取prompt
+        """获取指定prompt的key和内容或默认prompt的key和内容
         
         Args:
             prompt_key (str): prompt的key前缀

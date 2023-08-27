@@ -100,7 +100,7 @@ class QueryContext:
     messages: list[dict[str, str]]
     """此次请求最终的messages列表
     
-    在预处理完成后由QueryFactory设置，包含prompt
+    在预处理完成后由QueryFactory设置，包含prompt，提交给后端
     """
 
     response: Response

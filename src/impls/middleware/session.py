@@ -7,6 +7,7 @@ from src.models.middleware.session import Session
 from ...models.middleware import session
 from ...models.system import config as cfg
 from ...models import application
+from ...runtime import module
 
 
 session_expire_time = cfg.ConfigEntry(
@@ -32,6 +33,7 @@ class DefaultSession(session.Session):
         self.update_time = int(time.time())
 
 
+@module.component(session.SessionManagerFactory)
 class DefaultSessionManagerFactory(session.SessionManagerFactory):
     """默认session管理器工厂
     """
@@ -58,7 +60,7 @@ class DefaultSessionManager(session.SessionManager):
         self.config = config
 
         self.sessions = {}
-        
+
     async def expire_task(self):
         """过期任务
         """
