@@ -85,10 +85,10 @@ class MessageInterface:
         """
         raise NotImplementedError
     
-    async def run(self) -> typing.Generator[querymodule.QueryContext, None, None]:
-        """运行适配器，这是一个生成器
+    async def run(self):
+        """运行适配器
         
-        此函数阻塞运行，并不断生成事件，返回query.QueryContext
+        此函数阻塞运行。
         """
         raise NotImplementedError
     

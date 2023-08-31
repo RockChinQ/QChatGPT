@@ -302,8 +302,8 @@ class NakuruAdapter(interface.MessageInterface):
 
         self.bot.event[nakuru_event_name] = new_event_list
         
-    async def run(self) -> typing.Generator[querymodule.QueryContext, None, None]:
-        return await self.bot.run()
+    async def run(self):
+        return await self.bot._run()
     
     def support_reload(self) -> bool:
         return False

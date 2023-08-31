@@ -121,7 +121,7 @@ class YiriMiraiAdapter(interface.MessageInterface):
         
         bus.unsubscribe(event_type, callback)
 
-    async def run(self) -> typing.Generator[querymodule.QueryContext, None, None]:
+    async def run(self):
         """运行适配器
         """
         return await mirai.MiraiRunner(self.bot)._run()

@@ -88,6 +88,6 @@ class SingleSystemPromptModePromptManager(prompt.PromptManager):
     def set_as_default(self, prompt_key: str):
         """设置默认prompt
         """
-        key, value = self.get_prompt(prompt_key)
+        key, _ = self.get_prompt(prompt_key)
 
         self.defalut_prompt_key = key

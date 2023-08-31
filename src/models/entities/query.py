@@ -68,6 +68,12 @@ class Response:
         self.resp_type = ResponseType.COMPONENT
         self.content = component
 
+    def __init__(self, role: str, resp_type: ResponseType, content: typing.Any, finish_reason: ResponseFinishReason):
+        self.role = role
+        self.resp_type = resp_type
+        self.content = content
+        self.finish_reason = finish_reason
+
 
 class QueryContext:
     """一次请求的上下文
