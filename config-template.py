@@ -5,9 +5,10 @@ import logging
 # 目前支持以下适配器:
 # - "yirimirai": mirai的通信框架，YiriMirai框架适配器, 请同时填写下方mirai_http_api_config
 # - "nakuru": go-cqhttp通信框架，请同时填写下方nakuru_config
+# - "qq-botpy": QQ官方机器人框架，请同时填写下方qq_botpy_config
 msg_source_adapter = "yirimirai"
 
-# [必需(与nakuru二选一，取决于msg_source_adapter)] Mirai的配置
+# [必需(与nakuru、qq-botpy三选一，取决于msg_source_adapter)] Mirai的配置
 # 请到配置mirai的步骤中的教程查看每个字段的信息
 # adapter: 选择适配器，目前支持HTTPAdapter和WebSocketAdapter
 # host: 运行mirai的主机地址
@@ -24,13 +25,20 @@ mirai_http_api_config = {
     "qq": 1234567890
 }
 
-# [必需(与mirai二选一，取决于msg_source_adapter)]
+# [必需(与mirai、qq-botpy三选一，取决于msg_source_adapter)]
 # 使用nakuru-project框架连接go-cqhttp的配置
 nakuru_config = {
     "host": "localhost",  # go-cqhttp的地址
     "port": 6700,  # go-cqhttp的正向websocket端口
     "http_port": 5700,  # go-cqhttp的正向http端口
     "token": ""  # 若在go-cqhttp的config.yml设置了access_token, 则填写此处
+}
+
+# [必需(与mirai、nakuru三选一，取决于msg_source_adapter)]
+# 使用qq-botpy框架连接QQ官方机器人的配置
+qq_botpy_config = {
+    "appid": "1234567890",  # QQ机器人的appid
+    "token": "jwnxxxxxxxxxx",  # QQ机器人的token
 }
 
 # [必需] OpenAI的配置
