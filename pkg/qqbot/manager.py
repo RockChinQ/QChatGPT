@@ -122,6 +122,14 @@ class QQBotManager:
                 from pkg.qqbot.sources.nakuru import NakuruProjectAdapter
                 self.adapter = NakuruProjectAdapter(config.nakuru_config)
                 self.bot_account_id = self.adapter.bot_account_id
+            elif config.msg_source_adapter == 'qq-botpy':
+                # 创建eventloop
+                import asyncio
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                from pkg.qqbot.sources.official import OfficialAdapter
+                self.adapter = OfficialAdapter(config.qq_botpy_config)
+                self.bot_account_id = self.adapter.bot_account_id
         else:
             self.adapter = context.get_qqbot_manager().adapter
             self.bot_account_id = context.get_qqbot_manager().bot_account_id

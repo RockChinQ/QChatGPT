@@ -110,7 +110,7 @@ class NakuruProjectEventConverter(adapter_model.EventConverter):
         elif event is mirai.FriendMessage:
             return nakuru.FriendMessage
         else:
-            raise Exception("未支持转换的事件类型: " + str(event))
+            raise Exception("未支持转换的事件类型(YiriMirai -> Nakuru): " + str(event))
 
     @staticmethod
     def target2yiri(event: typing.Any) -> mirai.Event:
@@ -153,7 +153,7 @@ class NakuruProjectEventConverter(adapter_model.EventConverter):
                 time=event.time
             )
         else:
-            raise Exception("未支持转换的事件类型: " + str(event))
+            raise Exception("未支持转换的事件类型(Nakuru -> YiriMirai): " + str(event))
 
 
 class NakuruProjectAdapter(adapter_model.MessageSourceAdapter):
