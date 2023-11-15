@@ -14,6 +14,10 @@
         "http_port": 5700,
         "token": ""
     },
+    "qq_botpy_config": {
+        "appid": "1234567890",
+        "token": "jwnxxxxxxxxxx"
+    },
     "openai_config": {
         "api_key": {
             "default": "openai_api_key"
