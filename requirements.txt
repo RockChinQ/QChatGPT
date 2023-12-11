@@ -1,6 +1,6 @@
 requests
 openai
-dulwich~=0.21.6
+dulwich~=0.21.7
 colorlog~=6.6.0
 yiri-mirai-rc
 websockets
