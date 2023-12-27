@@ -253,9 +253,9 @@ async def start_process(first_time_init=False):
                 }
 
             # 配置openai api_base
-            if "reverse_proxy" in cfg['openai_config'] and cfg['openai_config']["reverse_proxy"] is not None:
-                logging.debug("设置反向代理: "+cfg['openai_config']['reverse_proxy'])
-                openai.base_url = cfg['openai_config']["reverse_proxy"]
+            # if "reverse_proxy" in cfg['openai_config'] and cfg['openai_config']["reverse_proxy"] is not None:
+            #     logging.debug("设置反向代理: "+cfg['openai_config']['reverse_proxy'])
+            #     openai.base_url = cfg['openai_config']["reverse_proxy"]
 
             # 主启动流程
             database = pkg.database.manager.DatabaseManager()
