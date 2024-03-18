@@ -1,6 +1,7 @@
 requests
 openai>1.0.0
 anthropic
+zhipuai
 colorlog~=6.6.0
 yiri-mirai-rc
 aiocqhttp

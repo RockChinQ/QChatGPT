@@ -4,6 +4,7 @@ required_deps = {
     "requests": "requests",
     "openai": "openai",
     "anthropic": "anthropic",
+    "zhipuai": "zhipuai",
     "colorlog": "colorlog",
     "mirai": "yiri-mirai-rc",
     "aiocqhttp": "aiocqhttp",
