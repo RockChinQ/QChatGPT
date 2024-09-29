@@ -32,6 +32,10 @@
                 "public_guild_messages",
                 "direct_message"
             ]
+        },
+        {
+            "adapter": "itchat",
+            "enable": false
         }
     ],
     "track-function-calls": true,
