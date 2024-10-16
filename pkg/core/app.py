@@ -11,16 +11,24 @@ from ..provider.sysprompt import sysprompt as llm_prompt_mgr
 from ..provider.tools import toolmgr as llm_tool_mgr
 from ..provider import runnermgr
 from ..config import manager as config_mgr
+from ..config import settings as settings_mgr
 from ..audit.center import v2 as center_mgr
 from ..command import cmdmgr
 from ..plugin import manager as plugin_mgr
 from ..pipeline import pool
 from ..pipeline import controller, stagemgr
 from ..utils import version as version_mgr, proxy as proxy_mgr, announce as announce_mgr
+from ..persistence import mgr as persistencemgr
+from ..api.http.controller import main as http_controller
+from ..utils import logcache
 
 
 class Application:
     """运行时应用对象和上下文"""
+
+    event_loop: asyncio.AbstractEventLoop = None
+
+    asyncio_tasks: list[asyncio.Task] = []
 
     platform_mgr: im_mgr.PlatformManager = None
 
@@ -35,6 +43,8 @@ class Application:
     tool_mgr: llm_tool_mgr.ToolManager = None
 
     runner_mgr: runnermgr.RunnerManager = None
+
+    settings_mgr: settings_mgr.SettingsManager = None
 
     # ======= 配置管理器 =======
 
@@ -78,6 +88,12 @@ class Application:
 
     logger: logging.Logger = None
 
+    persistence_mgr: persistencemgr.PersistenceManager = None
+
+    http_ctrl: http_controller.HTTPController = None
+
+    log_cache: logcache.LogCache = None
+
     def __init__(self):
         pass
 
@@ -91,28 +107,36 @@ class Application:
 
         try:
    
+            # 后续可能会允许动态重启其他任务
+            # 故为了防止程序在非 Ctrl-C 情况下退出，这里创建一个不会结束的协程
+            async def never_ending():
+                while True:
+                    await asyncio.sleep(1)
+
             tasks = [
-                asyncio.create_task(self.platform_mgr.run()),
-                asyncio.create_task(self.ctrl.run())
+                asyncio.create_task(self.platform_mgr.run()),  # 消息平台
+                asyncio.create_task(self.ctrl.run()),  # 消息处理循环
+                asyncio.create_task(self.http_ctrl.run()),  # http 接口服务
+                asyncio.create_task(never_ending())
             ]
+            self.asyncio_tasks.extend(tasks)
 
-            # 挂信号处理
-
+            # 挂系统信号处理
             import signal
 
             def signal_handler(sig, frame):
-                for task in tasks:
+                for task in self.asyncio_tasks:
                     task.cancel()
                 self.logger.info("程序退出.")
+                # 结束当前事件循环
+                self.event_loop.stop()
                 exit(0)
 
             signal.signal(signal.SIGINT, signal_handler)
 
             await asyncio.gather(*tasks, return_exceptions=True)
-
         except asyncio.CancelledError:
             pass
         except Exception as e:
             self.logger.error(f"应用运行致命异常: {e}")
             self.logger.debug(f"Traceback: {traceback.format_exc()}")
-
