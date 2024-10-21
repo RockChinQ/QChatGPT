@@ -5,6 +5,8 @@ import time
 
 import colorlog
 
+from ...utils import constants
+
 
 log_colors_config = {
     "DEBUG": "green",  # cyan white
@@ -15,14 +17,14 @@ log_colors_config = {
 }
 
 
-async def init_logging() -> logging.Logger:
+async def init_logging(extra_handlers: list[logging.Handler] = None) -> logging.Logger:
     # 删除所有现有的logger
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
 
     level = logging.INFO
 
-    if "DEBUG" in os.environ and os.environ["DEBUG"] in ["true", "1"]:
+    if constants.debug_mode:
         level = logging.DEBUG
 
     log_file_name = "data/logs/qcg-%s.log" % time.strftime(
@@ -41,7 +43,8 @@ async def init_logging() -> logging.Logger:
 
     stream_handler = logging.StreamHandler(sys.stdout)
 
-    log_handlers: logging.Handler = [stream_handler, logging.FileHandler(log_file_name)]
+    log_handlers: list[logging.Handler] = [stream_handler, logging.FileHandler(log_file_name)]
+    log_handlers += extra_handlers if extra_handlers is not None else []
 
     for handler in log_handlers:
         handler.setLevel(level)
