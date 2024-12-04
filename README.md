@@ -1,6 +1,6 @@
 
 <p align="center">
-<img src="./res/social.png" alt="LangBot" width="400" />
+<img src="./res/social.png" alt="LangBot"/>
 
 <div align="center">
 😎高稳定、🧩支持扩展、🦄多模态 - 基于大语言模型的即时通讯机器人平台🤖  
