@@ -4,7 +4,7 @@
 
 <div align="center">
 
-
+<a href="https://trendshift.io/repositories/6187" target="_blank"><img src="https://trendshift.io/api/badge/repositories/6187" alt="RockChinQ%2FQChatGPT | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 <a href="https://docs.langbot.app">项目主页</a> ｜
 <a href="https://docs.langbot.app/insight/intro.htmll">功能介绍</a> ｜
@@ -59,5 +59,7 @@ LangBot 已上架宝塔面板，若您已安装宝塔面板，可以根据[文�
 #### 手动部署
 
 直接使用发行版运行，查看文档[手动部署](https://docs.langbot.app/deploy/langbot/manual.html)。
+
+## 📸 效果展示
 
 <img alt="回复效果（带有联网插件）" src="https://docs.langbot.app/QChatGPT-0516.png" width="500px"/>
